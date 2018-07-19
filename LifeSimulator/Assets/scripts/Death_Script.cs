@@ -16,8 +16,7 @@ public class Death_Script : MonoBehaviour {
     void Update()
     {
         if (!IsConnected())
-            print(gameObject + " would have died");
-        //Destroy(gameObject);
+            Destroy(gameObject);
     }
 
     void OnDestroy()
@@ -42,11 +41,15 @@ public class Death_Script : MonoBehaviour {
             foreach (GameObject obj in Attachments)
             {
                 if (obj == null) continue;
+
                 Death_Script ds = obj.GetComponent<Death_Script>();
                 if (ds == null) continue;
 
                 if (ds.IsConnected() == true)
+                {
+                    checking = false;
                     return true;
+                }
             }
 
             checking = false;
