@@ -20,13 +20,13 @@ public class FoodCreator_script : MonoBehaviour {
     {
         int amount =(int) (2 * Mathf.PI * radius) * density;
 
-
-
+        Vector2 me2D = new Vector2(transform.position.x, transform.position.y);
         Vector2 pos;
 
         for(int i=0; i < amount; i++)
         {
-            pos = Random.insideUnitCircle * radius;
+
+            pos = me2D + Random.insideUnitCircle * radius;
             Instantiate(Food, pos ,Quaternion.identity);
         }
     }
