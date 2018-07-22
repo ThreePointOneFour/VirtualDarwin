@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CellLoader_script : MonoBehaviour {
 
-    private readonly string[] cellType2Name = { "CoreCell", "BoosterCell", "BlueCell", "RedCell", "GreenCell" };
+    private readonly string[] cellType2Name = { "CoreCell", "BoosterCell", "BaseCell"};
     private GameObject[] LoadedCells;
 
     void Start () {
@@ -18,6 +18,8 @@ public class CellLoader_script : MonoBehaviour {
 
     public GameObject GetCellbyID(int id)
     {
+        if (LoadedCells == null) Load();
+
         if (id >= LoadedCells.Length)
             return null;
         else

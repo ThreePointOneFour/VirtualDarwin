@@ -6,19 +6,31 @@ public class FoodCreator_script : MonoBehaviour {
 
     public int radius;
     public int density;
+    public float regrowLoop;
+    public int regrowAmount;
 
+    private float timer; 
     private Object Food;
 
 	// Use this for initialization
 	void Start () {
         Food = Resources.Load("Food_prefab");
 
-        CreateFood();
+        CreateFood((int)(2 * Mathf.PI * radius) * density);
 	}
 
-    private void CreateFood()
+    void Update()
     {
-        int amount =(int) (2 * Mathf.PI * radius) * density;
+        timer += Time.deltaTime;
+        if(timer >= regrowLoop)
+        {
+            timer = 0;
+            CreateFood(regrowAmount);
+        }
+    }
+
+    private void CreateFood(int amount)
+    {
 
         Vector2 me2D = new Vector2(transform.position.x, transform.position.y);
         Vector2 pos;

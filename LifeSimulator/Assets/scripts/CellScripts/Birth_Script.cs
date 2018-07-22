@@ -7,7 +7,7 @@ public class Birth_Script : MonoBehaviour {
     private CellLoader_script CellLoader_script;
     private DNA_script DNA_script;
 
-    public int birthreq;
+    public int birthreq = int.MaxValue;
 
     // Use this for initialization
     void Start () {
@@ -25,8 +25,12 @@ public class Birth_Script : MonoBehaviour {
         for(int i = 0; i < DNA_script.DNA.Length - (DNA_script.getGeneLenght() -1); i= i + geneLenght)
         {
             int id = DNA_script.GetBaseAt(i);
-            int nutVal = CellLoader_script.GetCellbyID(id).GetComponent<Cell_script>().nutVal;
-            birthreq = +nutVal;
+
+            GameObject cell = CellLoader_script.GetCellbyID(id);
+            if (cell == null) continue;
+
+            int nutVal = cell.GetComponent<Cell_script>().nutVal;
+            birthreq += nutVal;
         }
         return birthreq;
     }

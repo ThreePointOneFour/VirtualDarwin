@@ -11,7 +11,7 @@ public class Food_script : MonoBehaviour {
     private Birth_Script Birth_Script;
 
 
-    private int food;
+    public int food;
     private float fctimer;
 
     // Use this for initialization

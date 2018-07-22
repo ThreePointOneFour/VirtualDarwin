@@ -6,25 +6,37 @@ public class DNA_script : MonoBehaviour
 {
 
     public string DNA;
-    public double MutationProbability;
+    public double MutationProbability = 0.1;
+    public double ChangeLengthProbability = 0.05;
+    
     private int geneLength = 3;
-
-    private int birthreq;
-
-    // Use this for initialization
-    void Awake()
-    {
-        if (DNA == "")
-            DNA = GetRandomDNA(10);
-    }
 
     public string Mutate(string DNA)
     {
+        //ChangeLength
+        if(Random.value <= ChangeLengthProbability)
+        {
+            int length = (int)Random.Range(1, 3);
+            //Lengthen
+            if(Random.value < 0.5)
+            {
+                for(int i=0; i<length; i++) 
+                    DNA = DNA + getRandomBase();
+            }
+            //Shorten
+            else
+            {
+                DNA = DNA.Remove(DNA.Length -length, length);
+            }
+
+        }
+
+        //Mutate
         for (int i = 0; i < DNA.Length; i++)
         {
             if (Random.value <= MutationProbability)
             {
-                char change = ((int)Random.Range(0, 9)).ToString().ToCharArray()[0];
+                char change = getRandomBase();
                 DNA = ChangeAt(DNA, change, i);
             }
         }
@@ -38,14 +50,17 @@ public class DNA_script : MonoBehaviour
         return front + change + back;
     }
 
-    private string GetRandomDNA(int lenght)
+    public void SetRandomDNA(int lenght)
     {
-        string DNA = "";
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < lenght; i++)
         {
-            DNA += ((int)Random.Range(0, 9)).ToString();
+            DNA += getRandomBase();
         }
-        return DNA;
+    }
+
+    private char getRandomBase()
+    {
+        return ((int)Random.Range(0, 9)).ToString().ToCharArray()[0];
     }
 
     public int GetBaseAt(int at)

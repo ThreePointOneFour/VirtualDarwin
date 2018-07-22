@@ -36,7 +36,6 @@ public class Seed_script : MonoBehaviour {
             }
         }
 
-        CellMatrix[(int)GetCmMid().x, (int)GetCmMid().y] = 0;
 
         for (int i = 0; i < DNA.Length - (DNA_script.getGeneLenght() -1); i = i + geneLength)
         {
@@ -48,17 +47,19 @@ public class Seed_script : MonoBehaviour {
             CellMatrix[x, y] = type;
         }
 
+        GameObject CellBox = new GameObject("Organism_" + DNA);
+
         for (int i=0; i < CellMatrix.GetLength(0); i++)
         {
             for(int j=0; j < CellMatrix.GetLength(1); j++)
             {
                 type = CellMatrix[i, j];
-                CreateCell(CellMatrix[i, j], i, j);
+                CreateCell(CellMatrix[i, j], i, j, CellBox);
             }
         }
     }
 
-    private void CreateCell(int type, int x, int y)
+    private void CreateCell(int type, int x, int y, GameObject CellBox)
     {
         if (type == -1)
             return;
@@ -66,7 +67,7 @@ public class Seed_script : MonoBehaviour {
         if (cell == null) return;
 
         Vector2 pos = new Vector2(this.transform.position.x + x - GetCmMid().x, this.transform.position.y + y - GetCmMid().y);
-        GameObject go = Instantiate(cell, pos, Quaternion.identity) as GameObject;
+        GameObject go = Instantiate(cell, pos, Quaternion.identity, CellBox.transform) as GameObject;
         go.GetComponent<DNA_script>().DNA = this.DNA_script.DNA;
     }
 
