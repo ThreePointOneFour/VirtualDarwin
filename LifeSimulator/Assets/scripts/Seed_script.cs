@@ -5,21 +5,23 @@ using UnityEngine;
 public class Seed_script : MonoBehaviour {
 
     private DNA_script DNA_script;
+    private CellLoader_script CellLoader_script;
 
-    private readonly int geneLength = 3;
-    private readonly string[] cellType2Name = { "CoreCell", "BoosterCell","BlueCell", "RedCell", "GreenCell" };
+    private int geneLength;
     int[,] CellMatrix = new int[10, 10];
 
     // Use this for initialization
     void Start () {
         DNA_script = GetComponent<DNA_script>();
+        CellLoader_script = GameObject.Find("CellLoader").GetComponent<CellLoader_script>();
+        geneLength = DNA_script.getGeneLenght();
 
-        BuildCell(DNA_script.DNA);
+        BuildOrga(DNA_script.DNA);
 
         Destroy(this.gameObject);
     }
 
-    private void BuildCell(string DNA)
+    private void BuildOrga(string DNA)
     {
 
         int type;
@@ -36,7 +38,7 @@ public class Seed_script : MonoBehaviour {
 
         CellMatrix[(int)GetCmMid().x, (int)GetCmMid().y] = 0;
 
-        for (int i = 0; i < DNA.Length - 2; i = i + geneLength)
+        for (int i = 0; i < DNA.Length - (DNA_script.getGeneLenght() -1); i = i + geneLength)
         {
             string gene = DNA.Substring(i, geneLength);
             type = (int)char.GetNumericValue(gene[0]);
@@ -58,12 +60,14 @@ public class Seed_script : MonoBehaviour {
 
     private void CreateCell(int type, int x, int y)
     {
-        if (type >= cellType2Name.Length) return;
         if (type == -1)
             return;
-        Object cell = Resources.Load("cells/" + cellType2Name[type] + "_prefab");
+        Object cell = CellLoader_script.GetCellbyID(type);
+        if (cell == null) return;
+
         Vector2 pos = new Vector2(this.transform.position.x + x - GetCmMid().x, this.transform.position.y + y - GetCmMid().y);
-        Instantiate(cell, pos, Quaternion.identity);
+        GameObject go = Instantiate(cell, pos, Quaternion.identity) as GameObject;
+        go.GetComponent<DNA_script>().DNA = this.DNA_script.DNA;
     }
 
     private Vector2 GetCmMid()

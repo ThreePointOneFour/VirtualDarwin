@@ -1,10 +1,8 @@
-﻿<Properties StartupItem="LifeSimulator.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\DNA\DNA_script.cs">
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\Cell_script.cs">
     <Files>
-      <File FileName="Assets\scripts\Cell_script.cs" Line="10" Column="49" />
-      <File FileName="Assets\scripts\DNA\DNA_script.cs" Line="49" Column="1" />
-      <File FileName="Assets\scripts\MainCell_script.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\Cell_script.cs" Line="16" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

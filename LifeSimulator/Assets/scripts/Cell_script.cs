@@ -4,16 +4,38 @@ using UnityEngine;
 
 public class Cell_script : MonoBehaviour {
 
+    public int nutVal = 5;
+
     private GameObject[] Attachments = new GameObject[4];
+    private Food_script Food_script;
+    private bool coreSearching = false;
 
-	private void Start() {
-
+    private void Start() {
         Attach();
-	}
+
+        GameObject core = SearchCore();
+
+        if (core != null)
+            Food_script = core.GetComponent<Food_script>();
+
+    }
 
     void OnDestroy()
     {
         print(gameObject + " died!");
+        Object Food = Resources.Load("Food_prefab");
+        GameObject remains = Instantiate(Food, transform.position, Quaternion.identity) as GameObject;
+        remains.GetComponent<eatable_script>().nutritionValue = nutVal;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        print("triggered" + collision.gameObject);
+        GameObject col = collision.gameObject;
+        eatable_script es = col.GetComponent<eatable_script>();
+
+        if ((es != null) && Food_script != null)
+            Food_script.Feed(es.eat());
     }
 
     private void Attach()
@@ -36,6 +58,35 @@ public class Cell_script : MonoBehaviour {
         }
 
         //print(Attachments[0] + "|" + Attachments[1] + "|" + Attachments[2] + "|" + Attachments[3]);
+    }
+
+    public GameObject SearchCore()
+    {
+        if (tag == "CoreCell")
+            return this.gameObject;
+        else if (coreSearching == true)
+            return null;
+        else
+        {
+            coreSearching = true;
+
+            GameObject[] Attachments = GetAttachments();
+
+            foreach (GameObject obj in Attachments)
+            {
+                if (obj == null) continue;
+
+                GameObject core;
+                if ((core = SearchCore()) != null)
+                {
+                    coreSearching = false;
+                    return core;
+                }
+            }
+
+            coreSearching = false;
+            return null;
+        }
     }
 
     public GameObject[] GetAttachments()

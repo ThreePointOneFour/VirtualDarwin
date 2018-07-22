@@ -7,6 +7,9 @@ public class DNA_script : MonoBehaviour
 
     public string DNA;
     public double MutationProbability;
+    private int geneLength = 3;
+
+    private int birthreq;
 
     // Use this for initialization
     void Awake()
@@ -15,7 +18,7 @@ public class DNA_script : MonoBehaviour
             DNA = GetRandomDNA(10);
     }
 
-    private string Mutate(string DNA)
+    public string Mutate(string DNA)
     {
         for (int i = 0; i < DNA.Length; i++)
         {
@@ -43,5 +46,16 @@ public class DNA_script : MonoBehaviour
             DNA += ((int)Random.Range(0, 9)).ToString();
         }
         return DNA;
+    }
+
+    public int GetBaseAt(int at)
+    {
+        int b = (int)char.GetNumericValue(DNA[at]);
+        return b;
+    }
+
+    public int getGeneLenght()
+    {
+        return geneLength;
     }
 }

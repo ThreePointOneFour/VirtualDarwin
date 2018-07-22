@@ -36,8 +36,6 @@ public class Death_Script : MonoBehaviour {
 
             GameObject[] Attachments = Cell_script.GetAttachments();
 
-            print(Attachments[0] + "|" + Attachments[1] + "|" + Attachments[2] + "|" + Attachments[3]);
-
             foreach (GameObject obj in Attachments)
             {
                 if (obj == null) continue;
