@@ -8,13 +8,18 @@ public class Seed_script : MonoBehaviour {
     private CellLoader_script CellLoader_script;
 
     private int geneLength;
-    int[,] CellMatrix = new int[10, 10];
+    int[,] CellMatrix;
 
     // Use this for initialization
     void Start () {
         DNA_script = GetComponent<DNA_script>();
         CellLoader_script = GameObject.Find("CellLoader").GetComponent<CellLoader_script>();
-        geneLength = DNA_script.getGeneLenght();
+        geneLength = DNA_script.GetGeneLenght();
+
+
+        int xLength = 10^DNA_script.geneInfo["x"];
+        int yLength = 10^DNA_script.geneInfo["y"];
+        CellMatrix = new int[xLength, yLength ];
 
         BuildOrga(DNA_script.DNA);
 
@@ -37,7 +42,7 @@ public class Seed_script : MonoBehaviour {
         }
 
 
-        for (int i = 0; i < DNA.Length - (DNA_script.getGeneLenght() -1); i = i + geneLength)
+        for (int i = 0; i < DNA.Length - (geneLength -1); i = i + geneLength)
         {
             string gene = DNA.Substring(i, geneLength);
             type = (int)char.GetNumericValue(gene[0]);

@@ -1,22 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 
 public class DNA_script : MonoBehaviour
 {
 
     public string DNA;
-    public double MutationProbability = 0.1;
-    public double ChangeLengthProbability = 0.05;
-    
-    private int geneLength = 3;
+    public double MutationProbability;
+    public double ChangeLengthProbability;
+
+    public readonly IDictionary<string, int> geneInfo = new Dictionary<string, int>()
+    {
+        { "type", 1 },
+        { "x", 1 },
+        { "y", 1 },
+    };
+    private int geneLength;
+
+    private void Awake()
+    {
+        geneLength = 0;
+        foreach(int length in geneInfo.Values)
+        {
+            geneLength += length;
+        }
+    }
 
     public string Mutate(string DNA)
     {
         //ChangeLength
         if(Random.value <= ChangeLengthProbability)
         {
-            int length = (int)Random.Range(1, 3);
+            int length = (int)Random.Range(1, geneLength);
             //Lengthen
             if(Random.value < 0.5)
             {
@@ -50,6 +66,12 @@ public class DNA_script : MonoBehaviour
         return front + change + back;
     }
 
+    public string GetGene(int nmb)
+    {
+        int start = (nmb - 1) * geneLength;
+        return DNA.Substring(start, geneLength);
+    }
+
     public void SetRandomDNA(int lenght)
     {
         for (int i = 0; i < lenght; i++)
@@ -69,7 +91,7 @@ public class DNA_script : MonoBehaviour
         return b;
     }
 
-    public int getGeneLenght()
+    public int GetGeneLenght()
     {
         return geneLength;
     }

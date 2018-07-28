@@ -19,10 +19,10 @@ public class Birth_Script : MonoBehaviour {
 
     public int CalcBirthReq()
     {
-        int geneLenght = DNA_script.getGeneLenght();
+        int geneLenght = DNA_script.GetGeneLenght();
         int birthreq = 0;
 
-        for(int i = 0; i < DNA_script.DNA.Length - (DNA_script.getGeneLenght() -1); i= i + geneLenght)
+        for(int i = 0; i < DNA_script.DNA.Length - (DNA_script.GetGeneLenght() -1); i= i + geneLenght)
         {
             int id = DNA_script.GetBaseAt(i);
 
