@@ -13,8 +13,7 @@ public class DNA_script : MonoBehaviour
     public readonly IDictionary<string, int> geneInfo = new Dictionary<string, int>()
     {
         { "type", 1 },
-        { "x", 1 },
-        { "y", 1 },
+        { "dir", 1 },
     };
     private int geneLength;
 

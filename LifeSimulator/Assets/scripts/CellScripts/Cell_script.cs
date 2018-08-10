@@ -41,8 +41,8 @@ public class Cell_script : MonoBehaviour {
         for(int i=0; i < dirs.Length; i++)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, dirs[i], length, mask.value);
-            if (!hit) return;
-            if (hit.transform.parent.gameObject != transform.parent.gameObject) return;
+            if (!hit) continue;
+            if (hit.transform.parent.gameObject != transform.parent.gameObject) continue;
 
             GameObject go = hit.collider.gameObject;
             Attachments[i] = go;
@@ -50,7 +50,7 @@ public class Cell_script : MonoBehaviour {
             fj.connectedBody = go.GetComponent<Rigidbody2D>(); ;
         }
 
-        //print(Attachments[0] + "|" + Attachments[1] + "|" + Attachments[2] + "|" + Attachments[3]);
+       print(Attachments[0] + "|" + Attachments[1] + "|" + Attachments[2] + "|" + Attachments[3]);
     }
 
     public GameObject SearchCore()

@@ -12,6 +12,7 @@ public class RandomDrift_script : MonoBehaviour {
 
     private void Start()
     {
+        timer = changeInt;
         rig = GetComponent<Rigidbody2D>();
     }
 

@@ -6,6 +6,8 @@ public class Death_Script : MonoBehaviour {
 
     private Cell_script Cell_script;
 
+    public bool immortal = false;
+
     private void Start()
     {
         Cell_script = GetComponent<Cell_script>();
@@ -21,6 +23,7 @@ public class Death_Script : MonoBehaviour {
 
     void Update()
     {
+        if (immortal) return;
         if (!IsConnected())
             Destroy(gameObject);
     }

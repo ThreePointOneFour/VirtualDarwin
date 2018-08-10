@@ -21,9 +21,9 @@ public class CellLoader_script : MonoBehaviour {
         if (LoadedCells == null) Load();
 
         if (id >= LoadedCells.Length)
-            return null;
-        else
-            return LoadedCells[id];
+            id = LoadedCells.Length -1;
+
+        return LoadedCells[id];
     }
 
     private void Load()
