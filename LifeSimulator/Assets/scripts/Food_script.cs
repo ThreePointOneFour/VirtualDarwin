@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class eatable_script : MonoBehaviour {
+public class Food_script : MonoBehaviour {
 
     public int nutritionValue = 5;
 
-    public int eat()
+    public int Eat()
     {
         Destroy(gameObject);
         return nutritionValue;

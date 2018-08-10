@@ -1,91 +1,77 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KitchenSink;
 
-public class Cell_script : MonoBehaviour {
+public abstract class Cell_script : MonoBehaviour {
 
     public int nutVal = 5;
+    public DNAO DNAO { get; set; }
 
-    private GameObject[] Attachments;
-    private Food_script Food_script;
-    private bool coreSearching = false;
+    private Looper HalfSecondLooper;
+    private Looper OneSecondLooper;
+    private Looper FiveSecondLooper;
+
+
+    public Attach_script Attach_Script;
+
+    private CoreCell_script CoreCell_script;
 
     private void Start() {
-        Attach();
 
-        GameObject core = SearchCore();
+        HalfSecondLooper = new Looper(HalfSecondLoop, 5f);
+        OneSecondLooper = new Looper(OneSecondLoop, 5f);
+        FiveSecondLooper = new Looper(FiveSecondLoop, 5f);
+
+        Attach_Script.Attach("Cell");
+
+        GameObject core = Attach_Script.RecursiveTagSearch("CoreCell");
 
         if (core != null)
-            Food_script = core.GetComponent<Food_script>();
+            CoreCell_script = core.GetComponent<CoreCell_script>();
 
+    }
+
+    private void Update()
+    {
+        float dtime = Time.deltaTime;
+
+        HalfSecondLooper.Loop(dtime);
+        OneSecondLooper.Loop(dtime);
+        FiveSecondLooper.Loop(dtime);
+
+        if (!IsConnected())
+            Destroy(gameObject);
+    }
+
+    void OnDestroy()
+    {
+        print(gameObject + "died");
+        Object Food = Resources.Load("Food_prefab");
+        GameObject remains = Instantiate(Food, transform.position, Quaternion.identity) as GameObject;
+        remains.GetComponent<Food_script>().nutritionValue = nutVal;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject col = collision.gameObject;
-        eatable_script es = col.GetComponent<eatable_script>();
+        Food_script es = col.GetComponent<Food_script>();
 
-        if ((es != null) && Food_script != null)
-            Food_script.Feed(es.eat());
+        if ((es != null) && CoreCell_script != null)
+            CoreCell_script.Feed(es.Eat());
     }
 
-    private void Attach()
+    private bool IsConnected()
     {
-        Attachments = new GameObject[4];
-
-        float length = 0.1F + GetComponent<BoxCollider2D>().size.x / 2;
-        LayerMask mask = LayerMask.GetMask("Cell");
-        //right,up,left,down
-        Vector2[] dirs = new Vector2[] { transform.right, transform.up, -transform.right, -transform.up };
-
-        for(int i=0; i < dirs.Length; i++)
-        {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dirs[i], length, mask.value);
-            if (!hit) continue;
-            if (hit.transform.parent.gameObject != transform.parent.gameObject) continue;
-
-            GameObject go = hit.collider.gameObject;
-            Attachments[i] = go;
-            FixedJoint2D fj = gameObject.AddComponent<FixedJoint2D>();
-            fj.connectedBody = go.GetComponent<Rigidbody2D>(); ;
-        }
-
-       print(Attachments[0] + "|" + Attachments[1] + "|" + Attachments[2] + "|" + Attachments[3]);
-    }
-
-    public GameObject SearchCore()
-    {
-        if (Attachments == null) Attach();
-
-        if (tag == "CoreCell")
-            return this.gameObject;
-        else if (coreSearching == true)
-            return null;
+        GameObject core = Attach_Script.RecursiveTagSearch("CoreCell");
+        if (core == null)
+            return false;
         else
-        {
-            coreSearching = true;
+            return true;
 
-            GameObject[] Attachments = GetAttachments();
-
-            foreach (GameObject obj in Attachments)
-            {
-                if (obj == null) continue;
-
-                GameObject core;
-                if ((core = obj.GetComponent<Cell_script>().SearchCore()) != null)
-                {
-                    coreSearching = false;
-                    return core;
-                }
-            }
-
-            coreSearching = false;
-            return null;
-        }
     }
 
-    public GameObject[] GetAttachments()
-    {
-        return Attachments;
-    }
+    protected virtual void HalfSecondLoop() { }
+    protected virtual void OneSecondLoop() { }
+    protected virtual void FiveSecondLoop() { }
 }

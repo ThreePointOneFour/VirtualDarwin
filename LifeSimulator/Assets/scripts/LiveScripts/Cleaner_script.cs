@@ -1,20 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KitchenSink;
 
 public class Cleaner_script : MonoBehaviour {
 
     public float loop = 5.0f;
 
-    private float timer = 0.0f;
+    private Looper CleanLooper;
+
+    void Start()
+    {
+        CleanLooper = new Looper(CleanEmpty, loop);
+    }
 
     // Update is called once per frame
     void Update() {
-        timer += Time.unscaledDeltaTime;
-        if (timer >= loop) { 
-            CleanEmpty();
-            timer = 0;
-        }
+        CleanLooper.Loop(Time.unscaledDeltaTime);
+
 	}
 
     private void CleanEmpty()

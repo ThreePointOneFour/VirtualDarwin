@@ -6,18 +6,15 @@ using UnityEngine.UI;
 
 public class DisplayDNA_script : MonoBehaviour {
 
-    private DNA_script DNA_script;
-    private GameObject dCube;
+    /*
+    public DNAO DNAO;
 
-    private int geneLength;
     private static readonly int MatrixSize = 3;
     private string[,] cMatrix = new string[MatrixSize, MatrixSize];
 
     private void Start()
     {
-        DNA_script = transform.parent.gameObject.GetComponent<DNA_script>();
-        geneLength = DNA_script.GetGeneLenght();
-        dCube = Resources.Load("DisplayCube_prefab") as GameObject;
+        DNAO = transform.parent.gameObject.GetComponent<Cell_script>().DNAO;
 
         FillcMatrix();
         Paint();
@@ -25,10 +22,17 @@ public class DisplayDNA_script : MonoBehaviour {
 
     private void FillcMatrix()
     {
-        string DNA = DNA_script.DNA;
-        int geneLength = DNA_script.GetGeneLenght();
+        List<IDictionary<string, int>> parsedDNA = DNAO.ParseDNA();
+
+        float step = (DNAO.DNA.Length / DNAO.GetGeneLength()) / (Mathf.Pow(MatrixSize, 2));
+
+        foreach (IDictionary<string, int> dic in parsedDNA)
+        {
+
+        }
+
         float progress = 0;
-        float step = (DNA.Length / geneLength) / (Mathf.Pow(MatrixSize,2));
+
 
         for (int i = 0; i < cMatrix.GetLength(0); i++)
         {
@@ -49,6 +53,7 @@ public class DisplayDNA_script : MonoBehaviour {
 
     private Color GetColor(string genes)
     {
+
         int r = 0;
         int g = 0;
         int b = 0;
@@ -71,14 +76,6 @@ public class DisplayDNA_script : MonoBehaviour {
         return new Color32((byte) r, (byte) g, (byte) b, 255);
     }
 
-    private int GetInfo(string gene, ref int strpnt, string info)
-    {
-        int length = DNA_script.geneInfo[info];
-        string temp = gene.Substring(strpnt, length);
-        strpnt = strpnt + length;
-        return Convert.ToInt32(temp);
-    }
-
     private void Paint()
     {
         for (int i = 0; i < cMatrix.GetLength(0); i++)
@@ -96,4 +93,5 @@ public class DisplayDNA_script : MonoBehaviour {
         Image img = child.GetComponent<Image>();
         img.color = c;
     }
+    */
 }

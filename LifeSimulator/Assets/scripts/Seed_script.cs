@@ -1,16 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KitchenSink;
 
 
-public class Seed_script : MonoBehaviour {
+public class Seed_script : Cell_script {
 
     private readonly int MAX_SIZE = 10;
 
-    private DNA_script DNA_script;
-    private CellLoader_script CellLoader_script;
-
-    private int geneLength;
+    public PrefabLoaderWrapper_script pl;
 
     private Point[] dirs = new Point[] {
         new Point(0,0), //Mid
@@ -20,26 +18,28 @@ public class Seed_script : MonoBehaviour {
         new Point(0,1), //Up
     };
 
-    // Use this for initialization
-    void Start () {
-        DNA_script = GetComponent<DNA_script>();
-        CellLoader_script = GameObject.Find("CellLoader").GetComponent<CellLoader_script>();
-        geneLength = DNA_script.GetGeneLenght();
-
-        BuildOrga(DNA_script.DNA);
-
-        Destroy(this.gameObject);
+    void Awake()
+    {
+        pl = PrefabLoaderWrapper_script.GetPL();
     }
 
-    private void BuildOrga(string DNA)
+    // Use this for initialization
+    void Start () {
+
+        BuildOrga();
+
+        Destroy(gameObject);
+    }
+
+    private void BuildOrga()
     {
         int[,] CellMatrix = BuildCellMatrix(MAX_SIZE);
 
-        CellMatrix = PopulateCellMatrix(DNA, CellMatrix);
+        CellMatrix = PopulateCellMatrix(CellMatrix);
 
-        GameObject CellBox = new GameObject("Organism_" + DNA);
+        GameObject CellBox = new GameObject("Organism_" + DNAO.DNA);
 
-        Vector2 mid = GetMid(CellMatrix).ToVector2();
+        Vector2 mid = Utils.GetMatrixMid(CellMatrix).ToVector2();
         for (int i=0; i < CellMatrix.GetLength(0); i++)
         {
             for(int j=0; j < CellMatrix.GetLength(1); j++)
@@ -66,21 +66,16 @@ public class Seed_script : MonoBehaviour {
         return CellMatrix;
     }
 
-    private int[,] PopulateCellMatrix(string DNA, int[,] CellMatrix)
+    private int[,] PopulateCellMatrix(int[,] CellMatrix)
     {
-        Point pos = GetMid(CellMatrix);
+        Point pos = Utils.GetMatrixMid(CellMatrix);
         int pastDir = 1;
-        for (int i = 0; i < DNA.Length - (geneLength - 1); i = i + geneLength)
-        {
-            string gene = DNA.Substring(i, geneLength);
-            int strpnt = 0;
+        List<IDictionary<string, int>> parsedDNA = DNAO.ParseDNA();
 
-            int tlen = DNA_script.geneInfo["type"];
-            int type = DNAUtils.Str2int(gene.Substring(strpnt,tlen));
-            strpnt += tlen;
-            int dlen = DNA_script.geneInfo["dir"];
-            int dir = DNAUtils.Str2int(gene.Substring(strpnt, dlen));
-            strpnt += dlen;
+        foreach (IDictionary<string, int> dic in parsedDNA)
+        {
+            int type = dic["type"];
+            int dir = dic["dir"];
 
             dir = Mathf.FloorToInt(dir / 2);
             int index;
@@ -105,16 +100,11 @@ public class Seed_script : MonoBehaviour {
     {
         if (type == -1)
             return;
-        Object cell = CellLoader_script.GetCellbyID(type);
+        Object cell = pl.Load(DNAO.GetCellById(type));
         if (cell == null) return;
 
-        Vector2 pos = new Vector2(this.transform.position.x + x - origin.x, this.transform.position.y + y - origin.y);
+        Vector2 pos = new Vector2(transform.position.x + x - origin.x, transform.position.y + y - origin.y);
         GameObject go = Instantiate(cell, pos, Quaternion.identity, CellBox.transform) as GameObject;
-        go.GetComponent<DNA_script>().DNA = this.DNA_script.DNA;
-    }
-
-    private Point GetMid(int[,] CellMatrix)
-    {
-        return new Point((CellMatrix.GetLength(0) / 2), (CellMatrix.GetLength(1) / 2));
+        go.GetComponent<Cell_script>().DNAO = new DNAO(DNAO.DNA);
     }
 }
