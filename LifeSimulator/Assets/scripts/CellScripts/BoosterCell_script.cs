@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoosterCell_script : Cell_script {
+public class BoosterCell_script : ConductorCell_script {
 
 
     public int boostStrength;
     public Rigidbody2D rig;
 
-    protected override void HalfSecondLoop()
+    public override void OnConductorLoop()
     {
-        Boost();
+        if (GetAttachedActiveCnt() > 0)
+            Boost();
     }
 
     private void Boost()
