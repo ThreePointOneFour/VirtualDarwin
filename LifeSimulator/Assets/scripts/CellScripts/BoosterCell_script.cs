@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoosterCell_script : Cell_script {
 
 
-    public int boostStrength = 10;
+    public int boostStrength;
     public Rigidbody2D rig;
 
     protected override void HalfSecondLoop()

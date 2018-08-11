@@ -34,24 +34,36 @@ public class DNAO {
         return geneLength;
     }
 
+    public static int GetInfoLength(string info)
+    {
+        return geneInfo[info];
+    }
+
+    public int GetGeneCnt()
+    {
+        return (DNA.Length / GetGeneLength()) - (DNA.Length % GetGeneLength());
+    }
+
     public static string GetCellById(int id)
     {
-        if (id > CellType2Name.Length)
-            id = CellType2Name.Length - 1;
-        return CellType2Name[id];
+        int space = Utils.PowOfTen(GetInfoLength("type"));
+        int typesCnt = CellType2Name.Length;
+        int index = Mathf.RoundToInt(id / ((float)space / typesCnt));
+        return CellType2Name[index];
     }
 
     public string Mutate(float MutateProb)
     {
         string newDNA = MutateLength(DNA, MutateProb);
-        return MutateContent(newDNA, MutateProb);
+        newDNA = MutateContent(newDNA, MutateProb);
+        return newDNA;
     }
 
     private string MutateLength(string DNA, float prob)
     {
         if (Random.value <= prob)
         {
-            int length = Random.Range(1, GetGeneLength());
+            int length = Random.Range(1, GetGeneLength() + 1);
             //Lengthen
             if (Random.value < 0.5)
             {
@@ -84,8 +96,17 @@ public class DNAO {
     public string GetGene(int nmb)
     {
         int geneLength = GetGeneLength();
-        int start = (nmb - 1) * geneLength;
+        int start = (nmb) * geneLength;
         return DNA.Substring(start, geneLength);
+    }
+    public List<string> GetGenes(int start, int amount)
+    {
+        List<string> ret = new List<string>();
+        for(int i = 0; i < amount; i++)
+        {
+            ret.Add(GetGene(start + i));
+        }
+        return ret;
     }
 
     public int GetBase(int at)
@@ -141,7 +162,7 @@ public class DNAO {
         return ret;
     }
 
-    private int GetInfo(string gene, string info)
+    public static int GetInfo(string gene, string info)
     {
         int strpnt = 0;
         foreach (KeyValuePair<string, int> e in geneInfo)
@@ -154,12 +175,6 @@ public class DNAO {
         return 0;
     }
 
-    public int GetGeneCnt()
-    {
-        return (DNA.Length / GetGeneLength()) - (DNA.Length % GetGeneLength());
-    }
-
-
     public int CalcBirthReq(PrefabLoaderWrapper_script pl)
     {
         int ret = 0;
@@ -167,9 +182,9 @@ public class DNAO {
 
         foreach(IDictionary<string, int> e in parsedDNA)
         {
-            string type = CellType2Name[e["type"]];
+            string type = GetCellById(e["type"]);
 
-            GameObject cell = pl.Load(type, "/cells");
+            GameObject cell = pl.Load(type, "cells");
             if (cell == null) continue;
             ret += cell.GetComponent<Cell_script>().nutVal;
         }

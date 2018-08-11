@@ -21,7 +21,7 @@ namespace KitchenSink {
         public void Loop(float deltaTime)
         {
             timer += deltaTime;
-            if (timer <= LoopAt)
+            if (timer >= LoopAt)
             {
                 loopFunc();
                 timer = 0.0f;
@@ -53,12 +53,21 @@ namespace KitchenSink {
         {
             return new Point((matrix.GetLength(0) / 2), (matrix.GetLength(1) / 2));
         }
+
+        public static int MinMax(int nmb, int min, int max)
+        {
+            return Mathf.Min(Mathf.Max(nmb, min), max);
+        }
+
+        public static int PowOfTen(int nmb) {
+            return Mathf.RoundToInt(Mathf.Pow(10.0F, (float)nmb));
+        }
     }
 
     public class PrefabLoader
     {
 
-        private static readonly IDictionary<string, IDictionary<string, GameObject>> Loaded;
+        private static readonly IDictionary<string, IDictionary<string, GameObject>> Loaded = new Dictionary<string, IDictionary<string, GameObject>>();
 
         public GameObject Load(string prefabName, string path = "")
         {
@@ -71,19 +80,21 @@ namespace KitchenSink {
                 if (!temp.TryGetValue(prefabName, out prefab))
                     prefab = LoadAndAdd(prefabName, path);
             }
+            if (prefab == null) throw new System.Exception("Couldn't load object " + prefabName + " from: "+path+prefabName);
             return prefab;
         }
 
         private GameObject LoadAndAdd(string prefabName, string path, bool addPath = false)
         {
-            GameObject prefabO = Resources.Load(path + "/" + prefabName + "_prefab") as GameObject;
+            string fullPath = (path==""?"":path + "/") + prefabName + "_prefab";
+            GameObject prefabO = Resources.Load(fullPath) as GameObject;
             if (addPath)
             {
                 IDictionary<string, GameObject> dic = new Dictionary<string, GameObject>
             {
                 { prefabName, prefabO }
             };
-                Loaded.Add("path", dic);
+                Loaded.Add(path, dic);
             }
             else
                 Loaded[path].Add(prefabName, prefabO);

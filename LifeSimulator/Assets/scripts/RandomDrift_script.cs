@@ -5,9 +5,8 @@ using KitchenSink;
 
 public class RandomDrift_script : MonoBehaviour {
 
-    public int speed = 3;
+    public int speed;
 
-    private float timer;
     private Rigidbody2D rig;
 
     private Looper Looper;

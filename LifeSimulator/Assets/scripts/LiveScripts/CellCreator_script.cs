@@ -27,8 +27,8 @@ public class CellCreator_script : MonoBehaviour {
         {
             pos = me2D + Random.insideUnitCircle * radius;
             GameObject seed = Instantiate(Seed, pos, Quaternion.identity) as GameObject;
-            Cell_script Cell_script = seed.GetComponent<Cell_script>();
-            Cell_script.DNAO = new DNAO(DNAO.GetRandomDNA(nbmGenes));
+            Seed_script Seed_script = seed.GetComponent<Seed_script>();
+            Seed_script.DNAO = new DNAO(DNAO.GetRandomDNA(nbmGenes));
         }
     }
 }

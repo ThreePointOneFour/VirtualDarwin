@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using KitchenSink;
 
 public class DisplayDNA_script : MonoBehaviour {
-
-    /*
-    public DNAO DNAO;
+        
+    private DNAO DNAO;
 
     private static readonly int MatrixSize = 3;
-    private string[,] cMatrix = new string[MatrixSize, MatrixSize];
+    private List<string>[,] cMatrix = new List<string>[MatrixSize, MatrixSize];
 
     private void Start()
     {
@@ -42,36 +42,39 @@ public class DisplayDNA_script : MonoBehaviour {
                 float next = (progress + step);
                 int end = Mathf.RoundToInt(next);
                 int length = Mathf.Max(end - start, 1);
-               
-                string s = DNA.Substring(start * geneLength, length * geneLength);
-                cMatrix[i, j] = s;
+
+                List<string> genes = DNAO.GetGenes(start, length);
+                cMatrix[i, j] = genes;
 
                 progress = next;
             }
         }
     }
 
-    private Color GetColor(string genes)
+    private Color GetColor(List<string> genes)
     {
 
         int r = 0;
         int g = 0;
         int b = 0;
 
-        int cnt = 0;
-        for(int i=0; i < genes.Length; i = i+ geneLength)
-        {
-            string gene = genes.Substring(i, geneLength);
+        int amount = genes.Count;
 
-            int strpnt = 0;
-            r += GetInfo(gene, ref strpnt, "type");
-            g += GetInfo(gene, ref strpnt, "type");
-            b += 10; //GetInfo(gene, ref strpnt, "dir");
-            cnt++;
+        foreach(string gene in genes)
+        {
+            int type = DNAO.GetInfo(gene, "type");
+            int dir = DNAO.GetInfo(gene, "dir");
+            r += dir;
+            g += type;
+            b += (dir + type) / 2;
         }
-        r = r / cnt * (255 / 10);
-        g = g / cnt * (255 / 10);
-        b = b / cnt * (255 / 10);
+
+        int typeOpt = Utils.PowOfTen(DNAO.GetInfoLength("type"));
+        int dirOpt = Utils.PowOfTen(DNAO.GetInfoLength("dir"));
+
+        r = r / amount * (255 / typeOpt);
+        g = g / amount * (255 / dirOpt);
+        b = b / amount * (255 / ((typeOpt + dirOpt) / 2));
 
         return new Color32((byte) r, (byte) g, (byte) b, 255);
     }
@@ -93,5 +96,4 @@ public class DisplayDNA_script : MonoBehaviour {
         Image img = child.GetComponent<Image>();
         img.color = c;
     }
-    */
 }

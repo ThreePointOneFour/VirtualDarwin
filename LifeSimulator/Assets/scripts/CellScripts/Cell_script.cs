@@ -12,18 +12,20 @@ public abstract class Cell_script : MonoBehaviour {
     private Looper OneSecondLooper;
     private Looper FiveSecondLooper;
 
-
     public Attach_script Attach_Script;
 
     private CoreCell_script CoreCell_script;
 
-    private void Start() {
-
-        HalfSecondLooper = new Looper(HalfSecondLoop, 5f);
-        OneSecondLooper = new Looper(OneSecondLoop, 5f);
+    public virtual void Awake()
+    {
+        HalfSecondLooper = new Looper(HalfSecondLoop, 0.5f);
+        OneSecondLooper = new Looper(OneSecondLoop, 1f);
         FiveSecondLooper = new Looper(FiveSecondLoop, 5f);
+    }
 
-        Attach_Script.Attach("Cell");
+    public void Start()
+    {
+        Attach_Script.Attach("Cell", true);
 
         GameObject core = Attach_Script.RecursiveTagSearch("CoreCell");
 
@@ -32,7 +34,7 @@ public abstract class Cell_script : MonoBehaviour {
 
     }
 
-    private void Update()
+    public void Update()
     {
         float dtime = Time.deltaTime;
 
@@ -41,10 +43,13 @@ public abstract class Cell_script : MonoBehaviour {
         FiveSecondLooper.Loop(dtime);
 
         if (!IsConnected())
+        {
             Destroy(gameObject);
+        }
+            
     }
 
-    void OnDestroy()
+    public virtual void OnDestroy()
     {
         print(gameObject + "died");
         Object Food = Resources.Load("Food_prefab");

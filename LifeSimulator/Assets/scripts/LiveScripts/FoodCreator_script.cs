@@ -9,7 +9,7 @@ public class FoodCreator_script : MonoBehaviour {
     public float regrowLoop;
     public int regrowAmount;
 
-    public PrefabLoaderWrapper_script pl;
+    private PrefabLoaderWrapper_script pl;
 
     private float timer; 
     private Object Food;
@@ -21,7 +21,7 @@ public class FoodCreator_script : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Food = pl.Load("Food_prefab");
+        Food = pl.Load("Food");
 
         CreateFood((int)(2 * Mathf.PI * radius) * density);
 	}

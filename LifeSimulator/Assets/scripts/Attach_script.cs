@@ -6,6 +6,8 @@ public class Attach_script : MonoBehaviour {
 
     private GameObject[] Attachments;
 
+    public string DefaultLayerMask = "Cell";
+    public bool DefaultSiblingsOnly = true;
     public bool searching { get; private set; }
 
     private void Awake()
@@ -41,7 +43,7 @@ public class Attach_script : MonoBehaviour {
     {
         if (Attachments == null)
         {
-            throw new System.Exception("Attach before searching");
+            Attach(DefaultLayerMask, DefaultSiblingsOnly);
         }
 
 

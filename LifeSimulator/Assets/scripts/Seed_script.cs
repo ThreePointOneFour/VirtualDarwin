@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using KitchenSink;
+using System;
 
-
-public class Seed_script : Cell_script {
+public class Seed_script : MonoBehaviour {
 
     private readonly int MAX_SIZE = 10;
 
-    public PrefabLoaderWrapper_script pl;
+    public string customDNA;
+    public DNAO DNAO;
+    private PrefabLoaderWrapper_script pl;
 
     private Point[] dirs = new Point[] {
         new Point(0,0), //Mid
@@ -20,6 +22,7 @@ public class Seed_script : Cell_script {
 
     void Awake()
     {
+        DNAO = new DNAO(customDNA);
         pl = PrefabLoaderWrapper_script.GetPL();
     }
 
@@ -91,7 +94,11 @@ public class Seed_script : Cell_script {
             pos.x += dirs[index].x;
             pos.y += dirs[index].y;
 
+            pos.x = Utils.MinMax(pos.x, 0, CellMatrix.GetLength(0) -1);
+            pos.y = Utils.MinMax(pos.y, 0, CellMatrix.GetLength(1) -1);
+
             CellMatrix[pos.x, pos.y] = type;
+            
         }
         return CellMatrix;
     }
@@ -100,7 +107,7 @@ public class Seed_script : Cell_script {
     {
         if (type == -1)
             return;
-        Object cell = pl.Load(DNAO.GetCellById(type));
+        GameObject cell = pl.Load(DNAO.GetCellById(type), "cells");
         if (cell == null) return;
 
         Vector2 pos = new Vector2(transform.position.x + x - origin.x, transform.position.y + y - origin.y);
