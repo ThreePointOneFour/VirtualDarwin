@@ -25,7 +25,7 @@ public abstract class Cell_script : MonoBehaviour {
 
     public void Start()
     {
-        Attach_Script.Attach("Cell", true);
+        Attach_Script.Attach();
 
         GameObject core = Attach_Script.RecursiveTagSearch("CoreCell");
 
@@ -44,7 +44,7 @@ public abstract class Cell_script : MonoBehaviour {
 
         if (!IsConnected())
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
             
     }

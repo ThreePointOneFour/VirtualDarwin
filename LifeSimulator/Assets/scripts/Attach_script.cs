@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KitchenSink;
 
-public class Attach_script : MonoBehaviour {
+public class Attach_script : MonoBehaviour
+{
 
     private GameObject[] Attachments;
 
-    public string DefaultLayerMask = "Cell";
-    public bool DefaultSiblingsOnly = true;
+    private string layerMask = "Anchor";
     public bool searching { get; private set; }
 
     private void Awake()
@@ -15,7 +16,7 @@ public class Attach_script : MonoBehaviour {
         searching = false;
     }
 
-    public void Attach(string layerMask, bool siblingsOnly = false)
+    public void Attach()
     {
         Attachments = new GameObject[4];
 
@@ -26,16 +27,29 @@ public class Attach_script : MonoBehaviour {
 
         for (int i = 0; i < dirs.Length; i++)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dirs[i], length, mask.value);
-            if (!hit) continue;
-            if(siblingsOnly)
-                if (hit.transform.parent.gameObject != transform.parent.gameObject)
-                    continue;
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, dirs[i], length, mask.value);
 
-            GameObject go = hit.collider.gameObject;
-            Attachments[i] = go;
-            FixedJoint2D fj = gameObject.AddComponent<FixedJoint2D>();
-            fj.connectedBody = go.GetComponent<Rigidbody2D>(); ;
+            if (hits.Length != 2) continue;
+
+            RaycastHit2D ownHit = hits[0];
+            RaycastHit2D foreignHit = hits[1];
+
+            GameObject cell = foreignHit.transform.gameObject;
+            GameObject anchor = foreignHit.collider.gameObject;
+
+            //check if Raycast hit foreign cell
+            if (cell.transform.parent.gameObject != transform.parent.gameObject)
+                continue;
+
+            //check if Raycast hit own cell
+            if (ownHit.transform.gameObject != gameObject) {
+                continue;
+            }
+
+            Attachments[i] = cell;
+            FixedJoint2D fj = cell.AddComponent<FixedJoint2D>();
+            fj.connectedBody = GetComponent<Rigidbody2D>(); ;
+            Debug.Log(gameObject.name + " attached to " + cell.name);
         }
     }
 
@@ -43,7 +57,7 @@ public class Attach_script : MonoBehaviour {
     {
         if (Attachments == null)
         {
-            Attach(DefaultLayerMask, DefaultSiblingsOnly);
+            Attach();
         }
 
 

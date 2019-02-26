@@ -11,7 +11,7 @@ namespace KitchenSink {
         private float LoopAt;
         private Action loopFunc;
 
-        public Looper(Action loopFunc, float LoopAt, bool instant=true)
+        public Looper(Action loopFunc, float LoopAt, bool instant = true)
         {
             this.LoopAt = LoopAt;
             this.loopFunc = loopFunc;
@@ -62,6 +62,21 @@ namespace KitchenSink {
         public static int PowOfTen(int nmb) {
             return Mathf.RoundToInt(Mathf.Pow(10.0F, (float)nmb));
         }
+    }
+
+    public static class PhysicUtils {
+
+        public static RaycastHit2D FindNonChildRayHit(RaycastHit2D[] hits, GameObject OriginObject) {
+            RaycastHit2D ret = default(RaycastHit2D);
+            foreach (RaycastHit2D hit in hits) {
+
+                if (!hit.transform.IsChildOf(OriginObject.transform)) {
+                    ret = hit;
+                    break;
+                }
+            }
+            return ret;
+        }   
     }
 
     public class PrefabLoader

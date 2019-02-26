@@ -18,7 +18,6 @@ public abstract class ConductorCell_script : Cell_script {
     {
         if(Active != ActiveToBeSet) {
             Active = ActiveToBeSet;
-            Debug.Log(gameObject.name + " Active state was set to: " + Active);
         }
     }
 
