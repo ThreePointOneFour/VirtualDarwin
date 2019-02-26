@@ -4,13 +4,22 @@ using UnityEngine;
 
 public abstract class ConductorCell_script : Cell_script {
 
-    public bool Active { get; protected set; }
+    private bool Active;
+    private bool ActiveToBeSet;
 
-    public abstract void OnConductorLoop();
+    public abstract void ConductorUpdate();
 
     protected override void HalfSecondLoop()
     {
-        OnConductorLoop();
+        ConductorUpdate();
+    }
+
+    protected void LateUpdate()
+    {
+        if(Active != ActiveToBeSet) {
+            Active = ActiveToBeSet;
+            Debug.Log(gameObject.name + " Active state was set to: " + Active);
+        }
     }
 
     protected List<ConductorCell_script> GetAttachedConductor()
@@ -19,22 +28,37 @@ public abstract class ConductorCell_script : Cell_script {
         GameObject[] Attachments = Attach_Script.GetAttachments();
         foreach (GameObject go in Attachments)
         {
-            if (go == null) continue;
-            ConductorCell_script conductor = (go.GetComponent<ConductorCell_script>();
-            if (conductor != null )
+            if (go == null)
+            {
+                ret.Add(null);
+            }
+            else {
+                ConductorCell_script conductor = go.GetComponent<ConductorCell_script>();
                 ret.Add(conductor);
+            }
         }
         return ret;
     }
+
     protected int GetAttachedActiveCnt()
     {
         int attachedActive = 0;
         List<ConductorCell_script> acs = GetAttachedConductor();
         foreach (ConductorCell_script conductor in acs)
         {
-            if (conductor.Active)
+            if (conductor == null)
+                continue;
+            if (conductor.GetActive())
                 attachedActive++;;
         }
         return attachedActive;
+    }
+
+    protected void SetActive(bool active) {
+        ActiveToBeSet = active;
+    }
+
+    public bool GetActive() {
+        return Active;
     }
 }

@@ -5,6 +5,8 @@ using KitchenSink;
 
 public class CoreCell_script : Cell_script {
 
+    public bool sterile = false;
+
     public int startFood;
     private int currentFood;
     private readonly int savetyFood = 5;
@@ -23,7 +25,7 @@ public class CoreCell_script : Cell_script {
 
     protected override void HalfSecondLoop()
     {
-        CheckBirth();
+        if(!sterile) CheckBirth();
         CheckDead();
     }
 

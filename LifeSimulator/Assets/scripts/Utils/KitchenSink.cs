@@ -80,7 +80,7 @@ namespace KitchenSink {
                 if (!temp.TryGetValue(prefabName, out prefab))
                     prefab = LoadAndAdd(prefabName, path);
             }
-            if (prefab == null) throw new System.Exception("Couldn't load object " + prefabName + " from: "+path+prefabName);
+            if (prefab == null) throw new System.Exception("Couldn't load object " + prefabName + " from: "+path+"/"+prefabName);
             return prefab;
         }
 

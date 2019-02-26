@@ -9,11 +9,12 @@ public class DNAO {
 
     private static readonly IDictionary<string, int> geneInfo = new Dictionary<string, int>()
     {
-        { "type", 1 },
+        { "type", 2 },
         { "dir", 1 },
     };
 
-    private static readonly string[] CellType2Name = new string[]{ "CoreCell", "BoosterCell", "BaseCell" };
+    private static readonly string[] CellType2Name = new string[]{ "CoreCell", "BoosterCell", "BaseCell", "AndCell", "OrCell",
+        "NotCell", "XorCell", "AndAndCell", "OnCell", "DownGateCell", "UpGateCell", "LeftGateCell", "RightGateCell" };
 
     public DNAO(string DNA = "")
     {

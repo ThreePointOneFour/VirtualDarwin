@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeSimulator", "LifeSimulator.csproj", "{EF05D4EF-2D39-FAF6-D555-F50827005E9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{363AB4FB-5F1A-2E2F-E529-6C42FF2420B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EF05D4EF-2D39-FAF6-D555-F50827005E9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF05D4EF-2D39-FAF6-D555-F50827005E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF05D4EF-2D39-FAF6-D555-F50827005E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF05D4EF-2D39-FAF6-D555-F50827005E9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{363AB4FB-5F1A-2E2F-E529-6C42FF2420B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{363AB4FB-5F1A-2E2F-E529-6C42FF2420B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{363AB4FB-5F1A-2E2F-E529-6C42FF2420B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{363AB4FB-5F1A-2E2F-E529-6C42FF2420B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
