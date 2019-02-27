@@ -11,6 +11,7 @@ public abstract class ConductorCell_script : Cell_script {
 
     protected override void HalfSecondLoop()
     {
+        base.HalfSecondLoop();
         ConductorUpdate();
     }
 

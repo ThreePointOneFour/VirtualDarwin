@@ -65,8 +65,8 @@
     <Compile Include="Assets\scripts\Attach_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Abstrac Classes\Cell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Abstrac Classes\ConductorCell_script.cs" />
-    <Compile Include="Assets\scripts\CellScripts\BaseCell_script.cs" />
-    <Compile Include="Assets\scripts\CellScripts\CoreCell_script.cs" />
+    <Compile Include="Assets\scripts\CellScripts\Base\BaseCell_script.cs" />
+    <Compile Include="Assets\scripts\CellScripts\Base\CoreCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Think!\AndAndCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Think!\AndCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Think!\BoosterCell_script.cs" />
@@ -79,6 +79,7 @@
     <Compile Include="Assets\scripts\DisplayDNA_script.cs" />
     <Compile Include="Assets\scripts\DNAO.cs" />
     <Compile Include="Assets\scripts\Food_script.cs" />
+    <Compile Include="Assets\scripts\FoodDisplay_script.cs" />
     <Compile Include="Assets\scripts\LiveScripts\CellCreator_script.cs" />
     <Compile Include="Assets\scripts\LiveScripts\Cleaner_script.cs" />
     <Compile Include="Assets\scripts\LiveScripts\FoodCreator_script.cs" />

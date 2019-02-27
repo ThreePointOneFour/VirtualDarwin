@@ -5,8 +5,12 @@ using KitchenSink;
 
 public abstract class Cell_script : MonoBehaviour {
 
-    public int nutVal = 5;
+    public const int nutVal = 5;
+    public const int FoodCost = 1;
     public DNAO DNAO { get; set; }
+
+    protected const int MaxFood = FoodCost * 3;
+    protected int CurrentFood = MaxFood;
 
     private Looper HalfSecondLooper;
     private Looper OneSecondLooper;
@@ -41,12 +45,6 @@ public abstract class Cell_script : MonoBehaviour {
         HalfSecondLooper.Loop(dtime);
         OneSecondLooper.Loop(dtime);
         FiveSecondLooper.Loop(dtime);
-
-        if (!IsConnected())
-        {
-            //Destroy(gameObject);
-        }
-            
     }
 
     public virtual void OnDestroy()
@@ -54,16 +52,41 @@ public abstract class Cell_script : MonoBehaviour {
         print(gameObject + "died");
         Object Food = Resources.Load("Food_prefab");
         GameObject remains = Instantiate(Food, transform.position, Quaternion.identity) as GameObject;
-        remains.GetComponent<Food_script>().nutritionValue = nutVal;
+        remains.GetComponent<Food_script>().nutritionValue = nutVal + CurrentFood;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject col = collision.gameObject;
-        Food_script es = col.GetComponent<Food_script>();
+        Food_script fs = col.GetComponent<Food_script>();
 
-        if ((es != null) && CoreCell_script != null)
-            CoreCell_script.Feed(es.Eat());
+        if (fs != null)
+            Feed(fs.Eat());
+    }
+
+    public void Hunger(int amount) {
+        CurrentFood -= amount;
+        if (CurrentFood < 0)
+            Destroy(gameObject);
+    }
+
+    public void Feed(int amount) {
+        CurrentFood += amount;
+    }
+
+    public int GetCurrentFood() {
+        return CurrentFood;
+    }
+
+    private void PassFoodOn(int amount) {
+        GameObject[] AttachedCells = Attach_Script.GetAttachments();
+        int attachedCnt = Attach_Script.GetAttachedCnt();
+        foreach (GameObject cell in AttachedCells) {
+            if (cell == null) continue;
+            int give = Mathf.FloorToInt(amount / attachedCnt);
+            cell.GetComponent<Cell_script>().Feed(give);
+        }
+
     }
 
     private bool IsConnected()
@@ -76,7 +99,19 @@ public abstract class Cell_script : MonoBehaviour {
 
     }
 
-    protected virtual void HalfSecondLoop() { }
+    public int GetStartCost() {
+        return nutVal + MaxFood;
+    }
+
+    protected virtual void HalfSecondLoop() {
+        int exessFood = CurrentFood - MaxFood;
+        if (exessFood > 0) {
+            PassFoodOn(exessFood);
+            Hunger(exessFood);
+        }
+    }
     protected virtual void OneSecondLoop() { }
-    protected virtual void FiveSecondLoop() { }
+    protected virtual void FiveSecondLoop() {
+        Hunger(FoodCost);
+    }
 }

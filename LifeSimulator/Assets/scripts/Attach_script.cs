@@ -90,6 +90,14 @@ public class Attach_script : MonoBehaviour
         }
     }
 
+    public int GetAttachedCnt() {
+        int cnt = 0;
+        foreach (GameObject cell in Attachments) {
+            if (cell != null) cnt++;
+        }
+        return cnt;
+    }
+
     public GameObject[] GetAttachments()
     {
         return Attachments;

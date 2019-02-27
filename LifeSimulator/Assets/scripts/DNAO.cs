@@ -187,7 +187,7 @@ public class DNAO {
 
             GameObject cell = pl.Load(type, "cells");
             if (cell == null) continue;
-            ret += cell.GetComponent<Cell_script>().nutVal;
+            ret += cell.GetComponent<Cell_script>().GetStartCost();
         }
         return ret;
     }
