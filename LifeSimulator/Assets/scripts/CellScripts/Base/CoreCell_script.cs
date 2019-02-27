@@ -5,7 +5,6 @@ using KitchenSink;
 
 public class CoreCell_script : Cell_script {
 
-    protected new const int MaxFood = int.MaxValue;
     private readonly int savetyFood = 5;
 
     private PrefabLoaderWrapper_script pl;
@@ -23,6 +22,10 @@ public class CoreCell_script : Cell_script {
     {
         base.FiveSecondLoop();
         CheckBirth();
+    }
+
+    protected override int GetExess() {
+        return base.GetExess() / 2;
     }
 
     private void CheckBirth()

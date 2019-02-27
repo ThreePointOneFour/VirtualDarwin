@@ -9,9 +9,8 @@ public abstract class Cell_script : MonoBehaviour {
     public const int FoodCost = 1;
     public DNAO DNAO { get; set; }
 
-    protected const int startFood = FoodCost * 3;
-    protected const int MaxFood = startFood;
-    protected int CurrentFood = startFood;
+    protected const int MaxFood = FoodCost * 3;;
+    protected int CurrentFood = MaxFood;
 
     private Looper HalfSecondLooper;
     private Looper OneSecondLooper;
@@ -79,6 +78,10 @@ public abstract class Cell_script : MonoBehaviour {
         return CurrentFood;
     }
 
+    protected virtual int GetExess() {
+        return CurrentFood - MaxFood;
+    }
+
     private void PassFoodOn(int amount) {
         GameObject[] AttachedCells = Attach_Script.GetAttachments();
         int attachedCnt = Attach_Script.GetAttachedCnt();
@@ -101,11 +104,11 @@ public abstract class Cell_script : MonoBehaviour {
     }
 
     public int GetStartCost() {
-        return nutVal + startFood;
+        return nutVal + MaxFood;
     }
 
     protected virtual void HalfSecondLoop() {
-        int exessFood = CurrentFood - MaxFood;
+        int exessFood = GetExess();
         if (exessFood > 0) {
             PassFoodOn(exessFood);
             Hunger(exessFood);
