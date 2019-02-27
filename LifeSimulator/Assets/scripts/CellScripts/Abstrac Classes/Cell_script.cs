@@ -9,8 +9,9 @@ public abstract class Cell_script : MonoBehaviour {
     public const int FoodCost = 1;
     public DNAO DNAO { get; set; }
 
-    protected const int MaxFood = FoodCost * 3;
-    protected int CurrentFood = MaxFood;
+    protected const int startFood = FoodCost * 3;
+    protected const int MaxFood = startFood;
+    protected int CurrentFood = startFood;
 
     private Looper HalfSecondLooper;
     private Looper OneSecondLooper;
@@ -100,7 +101,7 @@ public abstract class Cell_script : MonoBehaviour {
     }
 
     public int GetStartCost() {
-        return nutVal + MaxFood;
+        return nutVal + startFood;
     }
 
     protected virtual void HalfSecondLoop() {

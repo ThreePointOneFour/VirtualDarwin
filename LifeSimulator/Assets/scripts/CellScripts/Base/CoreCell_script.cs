@@ -5,6 +5,7 @@ using KitchenSink;
 
 public class CoreCell_script : Cell_script {
 
+    protected new const int MaxFood = int.MaxValue;
     private readonly int savetyFood = 5;
 
     private PrefabLoaderWrapper_script pl;
