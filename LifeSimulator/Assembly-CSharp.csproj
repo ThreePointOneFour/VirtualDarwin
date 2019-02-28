@@ -65,8 +65,13 @@
     <Compile Include="Assets\scripts\Attach_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Abstrac Classes\Cell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Abstrac Classes\ConductorCell_script.cs" />
+    <Compile Include="Assets\scripts\CellScripts\Abstrac Classes\FoodCreatorCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Base\BaseCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Base\CoreCell_script.cs" />
+    <Compile Include="Assets\scripts\CellScripts\Feast!\FilterCell_Script.cs" />
+    <Compile Include="Assets\scripts\CellScripts\Feast!\MouthCell_script.cs" />
+    <Compile Include="Assets\scripts\CellScripts\Feast!\PowerPlantCell_script.cs" />
+    <Compile Include="Assets\scripts\CellScripts\Feast!\SolarPanleCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Think!\AndAndCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Think!\AndCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Think!\BoosterCell_script.cs" />

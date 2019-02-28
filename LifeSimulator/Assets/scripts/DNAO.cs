@@ -14,7 +14,7 @@ public class DNAO {
     };
 
     private static readonly string[] CellType2Name = new string[]{ "CoreCell", "BoosterCell", "BaseCell", "AndCell", "OrCell",
-        "NotCell", "XorCell", "AndAndCell", "OnCell", "DownGateCell"}; //, "UpGateCell", "LeftGateCell", "RightGateCell" 
+        "NotCell", "XorCell", "AndAndCell", "OnCell", "DownGateCell", "UpGateCell", "LeftGateCell", "RightGateCell" };
 
     public DNAO(string DNA = "")
     {

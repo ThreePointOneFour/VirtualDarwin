@@ -9,16 +9,14 @@ public abstract class Cell_script : MonoBehaviour {
     public const int FoodCost = 1;
     public DNAO DNAO { get; set; }
 
-    protected const int MaxFood = FoodCost * 3;;
-    protected int CurrentFood = MaxFood;
+    private const int MaxFood = FoodCost * 3;
+    private int CurrentFood = MaxFood;
 
     private Looper HalfSecondLooper;
     private Looper OneSecondLooper;
     private Looper FiveSecondLooper;
 
-    public Attach_script Attach_Script;
-
-    private CoreCell_script CoreCell_script;
+    private Attach_script Attach_Script;
 
     public virtual void Awake()
     {
@@ -27,15 +25,12 @@ public abstract class Cell_script : MonoBehaviour {
         FiveSecondLooper = new Looper(FiveSecondLoop, 5f);
     }
 
-    public void Start()
+    public virtual void Start()
     {
+        Attach_Script = GetComponent<Attach_script>();
         Attach_Script.Attach();
 
         GameObject core = Attach_Script.RecursiveTagSearch("CoreCell");
-
-        if (core != null)
-            CoreCell_script = core.GetComponent<CoreCell_script>();
-
     }
 
     public void Update()
@@ -53,15 +48,6 @@ public abstract class Cell_script : MonoBehaviour {
         Object Food = Resources.Load("Food_prefab");
         GameObject remains = Instantiate(Food, transform.position, Quaternion.identity) as GameObject;
         remains.GetComponent<Food_script>().nutritionValue = nutVal + CurrentFood;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        GameObject col = collision.gameObject;
-        Food_script fs = col.GetComponent<Food_script>();
-
-        if (fs != null)
-            Feed(fs.Eat());
     }
 
     public void Hunger(int amount) {
