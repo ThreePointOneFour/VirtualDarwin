@@ -31,7 +31,7 @@ public class CoreCell_script : Cell_script {
     private void CheckBirth()
     {
         int birthCost = GetBirthCost();
-        if (CurrentFood >= birthCost + savetyFood)
+        if (GetCurrentFood() >= birthCost + savetyFood)
         {
             Birth();
             Hunger(birthCost);

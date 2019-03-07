@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class FoodDisplay_script : MonoBehaviour {
 
-    private Cell_script CellScript;
-    private Text Text;
+    public Cell_script CellScript;
+    public Text Text;
 
     public void Start()
     {
+        Debug.Log(GetComponent<RectTransform>().anchoredPosition);
         CellScript = GetComponentInParent<Cell_script>();
         Text = GetComponent<Text>();
     }

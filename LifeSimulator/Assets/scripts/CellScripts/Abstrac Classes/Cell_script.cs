@@ -16,7 +16,7 @@ public abstract class Cell_script : MonoBehaviour {
     private Looper OneSecondLooper;
     private Looper FiveSecondLooper;
 
-    private Attach_script Attach_Script;
+    public Attach_script Attach_Script;
 
     public virtual void Awake()
     {
@@ -27,7 +27,6 @@ public abstract class Cell_script : MonoBehaviour {
 
     public virtual void Start()
     {
-        Attach_Script = GetComponent<Attach_script>();
         Attach_Script.Attach();
 
         GameObject core = Attach_Script.RecursiveTagSearch("CoreCell");

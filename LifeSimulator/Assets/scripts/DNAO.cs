@@ -14,7 +14,8 @@ public class DNAO {
     };
 
     private static readonly string[] CellType2Name = new string[]{ "CoreCell", "BoosterCell", "BaseCell", "AndCell", "OrCell",
-        "NotCell", "XorCell", "AndAndCell", "OnCell", "DownGateCell", "UpGateCell", "LeftGateCell", "RightGateCell" };
+        "NotCell", "XorCell", "OnCell", "DownGateCell", "UpGateCell", "LeftGateCell", "RightGateCell", "FilterCell",
+        "MouthCell", "PowerPlantCell", "SolarPanelCell" };
 
     public DNAO(string DNA = "")
     {
@@ -47,7 +48,7 @@ public class DNAO {
 
     public static string GetCellById(int id)
     {
-        int space = Utils.PowOfTen(GetInfoLength("type"));
+        int space = BaseU.PowOfTen(GetInfoLength("type"));
         int typesCnt = CellType2Name.Length;
         int index = Mathf.FloorToInt(id / ((float)space / typesCnt));
         return CellType2Name[index];
@@ -88,7 +89,7 @@ public class DNAO {
             if (Random.value <= prob)
             {
                 char change = GetRandomBase();
-                DNA = Utils.ChangeStrAt(DNA, change, i);
+                DNA = BaseU.ChangeStrAt(DNA, change, i);
             }
         }
         return DNA;
@@ -170,7 +171,7 @@ public class DNAO {
         {
             int len = e.Value;
             if (e.Key == info)
-                return Utils.Str2int(gene.Substring(strpnt, len));
+                return BaseU.Str2int(gene.Substring(strpnt, len));
             strpnt += len;
         }
         return 0;

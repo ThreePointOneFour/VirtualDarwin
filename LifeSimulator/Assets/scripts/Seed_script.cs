@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using KitchenSink;
-using System;
+
 
 public class Seed_script : MonoBehaviour {
 
@@ -29,12 +29,16 @@ public class Seed_script : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        BuildOrga();
+        Vector2 originalPos = transform.position;
+        PhysicsU.Teleport(gameObject, Random.insideUnitCircle.normalized * 1000);
+
+        GameObject Organism = BuildOrga();
+        PhysicsU.Teleport(Organism, originalPos);
 
         Destroy(gameObject);
     }
 
-    private void BuildOrga()
+    private GameObject BuildOrga()
     {
         int[,] CellMatrix = BuildCellMatrix(MAX_SIZE);
 
@@ -42,7 +46,7 @@ public class Seed_script : MonoBehaviour {
 
         GameObject CellBox = new GameObject("Organism_" + DNAO.DNA);
 
-        Vector2 mid = Utils.GetMatrixMid(CellMatrix).ToVector2();
+        Vector2 mid = BaseU.GetMatrixMid(CellMatrix).ToVector2();
         for (int i=0; i < CellMatrix.GetLength(0); i++)
         {
             for(int j=0; j < CellMatrix.GetLength(1); j++)
@@ -51,6 +55,7 @@ public class Seed_script : MonoBehaviour {
                 CreateCell(mid, type, i, j, CellBox);
             }
         }
+        return CellBox;
     }
 
     private int [,] BuildCellMatrix(int xsize, int ysize = -1)
@@ -71,7 +76,7 @@ public class Seed_script : MonoBehaviour {
 
     private int[,] PopulateCellMatrix(int[,] CellMatrix)
     {
-        Point pos = Utils.GetMatrixMid(CellMatrix);
+        Point pos = BaseU.GetMatrixMid(CellMatrix);
         int pastDir = 1;
         List<IDictionary<string, int>> parsedDNA = DNAO.ParseDNA();
 
@@ -94,8 +99,8 @@ public class Seed_script : MonoBehaviour {
             pos.x += dirs[index].x;
             pos.y += dirs[index].y;
 
-            pos.x = Utils.MinMax(pos.x, 0, CellMatrix.GetLength(0) -1);
-            pos.y = Utils.MinMax(pos.y, 0, CellMatrix.GetLength(1) -1);
+            pos.x = BaseU.MinMax(pos.x, 0, CellMatrix.GetLength(0) -1);
+            pos.y = BaseU.MinMax(pos.y, 0, CellMatrix.GetLength(1) -1);
 
             CellMatrix[pos.x, pos.y] = type;
             

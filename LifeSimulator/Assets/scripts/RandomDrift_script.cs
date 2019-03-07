@@ -7,15 +7,13 @@ public class RandomDrift_script : MonoBehaviour {
 
     public int speed;
 
-    private Rigidbody2D rig;
+    public Rigidbody2D rig;
 
     private Looper Looper;
 
     private void Start()
     {
         Looper = new Looper(RandDrift, 5.0f);
-
-        rig = GetComponent<Rigidbody2D>();
     }
 
     void Update () {

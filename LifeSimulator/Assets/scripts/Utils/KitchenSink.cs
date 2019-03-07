@@ -29,7 +29,7 @@ namespace KitchenSink {
         }
     }
 
-    public static class Utils
+    public static class BaseU
     {
 
         public static int Char2int(char c)
@@ -64,7 +64,18 @@ namespace KitchenSink {
         }
     }
 
-    public static class PhysicUtils {
+    public static class MathU {
+        public static float Onefy(float nmb) {
+            if (nmb > 0)
+                return 1;
+            else if (nmb < 0)
+                return -1;
+            else
+                return 0;
+        }
+    }
+
+    public static class PhysicsU {
 
         public static RaycastHit2D FindNonChildRayHit(RaycastHit2D[] hits, GameObject OriginObject) {
             RaycastHit2D ret = default(RaycastHit2D);
@@ -76,7 +87,14 @@ namespace KitchenSink {
                 }
             }
             return ret;
-        }   
+        }
+
+        public static void Teleport(GameObject go, Vector2 pos) {
+            go.transform.position = pos;
+            foreach (Transform child in go.transform) {
+                Teleport(child.gameObject, pos);
+            }
+        }
     }
 
     public class PrefabLoader
