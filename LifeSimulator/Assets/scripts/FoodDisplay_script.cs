@@ -10,7 +10,6 @@ public class FoodDisplay_script : MonoBehaviour {
 
     public void Start()
     {
-        Debug.Log(GetComponent<RectTransform>().anchoredPosition);
         CellScript = GetComponentInParent<Cell_script>();
         Text = GetComponent<Text>();
     }

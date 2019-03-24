@@ -92,6 +92,11 @@ public abstract class Cell_script : MonoBehaviour {
         return nutVal + MaxFood;
     }
 
+    public GameObject GetOrganism() {
+        return transform.parent.gameObject;
+    }
+
+
     protected virtual void HalfSecondLoop() {
         int exessFood = GetExess();
         if (exessFood > 0) {

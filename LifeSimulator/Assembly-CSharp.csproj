@@ -62,7 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Backups\Attach_script_Back.cs" />
-    <Compile Include="Assets\scripts\Attach_script.cs" />
+    <Compile Include="Assets\scripts\Attaching\Anchor_script.cs" />
+    <Compile Include="Assets\scripts\Attaching\AnchorHub_script.cs" />
+    <Compile Include="Assets\scripts\Attaching\Attach_script.cs" />
     <Compile Include="Assets\scripts\CameraController_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Abstrac Classes\Cell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Abstrac Classes\ConductorCell_script.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Assets\scripts\LiveScripts\TimeControll_script.cs" />
     <Compile Include="Assets\scripts\PrefabLoaderWrapper_script.cs" />
     <Compile Include="Assets\scripts\RandomDrift_script.cs" />
+    <Compile Include="Assets\scripts\RectTransformFix_script.cs" />
     <Compile Include="Assets\scripts\Seed_script.cs" />
     <Compile Include="Assets\scripts\Utils\KitchenSink.cs" />
     <Compile Include="Assets\scripts\Utils\Point.cs" />

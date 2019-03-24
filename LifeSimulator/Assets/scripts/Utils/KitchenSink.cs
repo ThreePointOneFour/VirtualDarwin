@@ -31,7 +31,6 @@ namespace KitchenSink {
 
     public static class BaseU
     {
-
         public static int Char2int(char c)
         {
             return (int)char.GetNumericValue(c);
@@ -75,7 +74,31 @@ namespace KitchenSink {
         }
     }
 
-    public static class PhysicsU {
+    public static class PhysicsU
+    {
+        public enum Directions { Rigth, Up, Left, Down };
+
+        public static Vector2 Dir2Vec(Directions dir)
+        {
+            switch (dir)
+            {
+                case Directions.Rigth:
+                    return Vector2.right;
+
+                case Directions.Up:
+                    return Vector2.up;
+
+                case Directions.Left:
+                    return Vector2.left;
+
+                case Directions.Down:
+                    return Vector2.down;
+
+                default:
+                    return Vector2.zero;
+
+            }
+        }
 
         public static RaycastHit2D FindNonChildRayHit(RaycastHit2D[] hits, GameObject OriginObject) {
             RaycastHit2D ret = default(RaycastHit2D);

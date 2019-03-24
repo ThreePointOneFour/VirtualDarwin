@@ -70,7 +70,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 101
+  controlID: 98
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 98
+  controlID: 9
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 99
+  controlID: 10
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 100
+  controlID: 11
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -303,7 +303,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 481
+    x: 2401
     y: 92
     width: 954
     height: 546
@@ -389,20 +389,20 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 520a0000
+    m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 384be7ff8e61e7ff9c61e7ffa061e7ff3e70e7ff4c70e7ff5070e7ffc0d0e7ffced0e7ffd2d0e7ffb0d7e7ffbed7e7ffc2d7e7ff54efe7ff62efe7ff66efe7ff46ffe7ff4affe7ff1c3de8ff2a3de8ff2e3de8ff047ce8ff127ce8ff167ce8ffb8efe8ffbaefe8ff44f7e8ff8251e9ff9051e9ff9451e9ff8a54e9ff7c55e9ff7664e9ff7864e9ff169ce9ff249ce9ff509ce9ff5e9ce9ff629ce9ff62b1e9ff8eb1e9ff9cb1e9ffa0b1e9ff56bae9ff90bae9ff94bae9ff22d1e9ff4ed1e9ff60d1e9ffaad7e9fffed7e9ff38d8e9ff3cd8e9ff5c37eaff5e37eaffc279eaffd079eaffd479eaff468ceaff548ceaff588ceaffa011edffe4fbffff00000000684c0000
+    m_ExpandedIDs: 38e7f7ff3ae7f7ff780cf8ff860cf8ff8a0cf8ff5429f8ff5829f8ff9239f8ffce39f8ffd239f8ff4c63f8ff5a63f8ff5e63f8ff8e83f8ffac4df9ff800cfafff449faff504dfaffbe64fafffa64fafffe64faff8c7cfaff4039fbff6c4bfbff6e4bfbff3a52fbffa48cfbffa88cfbff568ffbffea8ffbff7897fbff7c97fbff2a02fcff9ae9fcff9ce9fcffd8e9fcffdae9fcff16eafcff18eafcff54eafcff56eafcff92eafcff94eafcffd0eafcffd2eafcff0eebfcff10ebfcff4cebfcff4eebfcff8aebfcff8cebfcffc8ebfcffcaebfcff06ecfcff08ecfcff44ecfcff46ecfcffd8ecfcff0eedfcff10edfcff4cedfcff4eedfcff8aedfcff8cedfcffa0b5fdffa2b5fdff7442feff7642feffb042feffb242feffee42feff2843feff2a43feff6443feff6643feffa043feffa243feffdc43feffde43feff1844feff1a44feff5444feff5644feff9244feffcc44feffce44feff5c45feff5e45feff9245feff9445feffce45feffd045feff0a46fefff457fefff657feffc069feffb280feffb480feffb2d5feffc0d5feffc4d5feff722bffff802bffff842bffffde44ffffec44fffff044ffff184affff1a4affff284affffe4fbffff00000000120e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Seed_prefab
-      m_OriginalName: Seed_prefab
+      m_Name: AndCell_prefab
+      m_OriginalName: AndCell_prefab
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -1505430
+      m_UserData: -530630
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -441,14 +441,14 @@ MonoBehaviour:
     height: 546
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 5497.9150469
+  lastFramingTime: 5600.488381
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.44816685, y: -0.43075845, z: -0.0390625}
+    m_Target: {x: 0.10536337, y: 0.019543193, z: -0.008512807}
     speed: 2
-    m_Value: {x: 0.44816685, y: -0.43075845, z: -0.0390625}
+    m_Value: {x: 0.10536337, y: 0.019543193, z: -0.008512807}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -480,9 +480,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 6.206651
+    m_Target: 3.2071042
     speed: 2
-    m_Value: 6.206651
+    m_Value: 3.2071042
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -531,20 +531,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/scenes
+    - Assets/Resources/cells
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/scenes
+  - Assets/Resources/cells
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\GitHub\VirtualDarwin\LifeSimulator
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: c8090000
-    m_LastClickedID: 2504
-    m_ExpandedIDs: 0000000090090000b20900004c0a00001a0b00007a0c0000ec0c000000ca9a3b
+    scrollPos: {x: 0, y: 14}
+    m_SelectedIDs: 6e0c0000
+    m_LastClickedID: 3182
+    m_ExpandedIDs: 0000000090090000b20900004c0a00000e0b00006e0c0000e00c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -572,7 +572,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000090090000b20900004c0a00001a0b00007a0c0000ec0c0000
+    m_ExpandedIDs: 0000000090090000b20900004c0a00000e0b00006e0c0000e00c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -647,7 +647,7 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
+    x: 1920
     y: 659
     width: 1435
     height: 359
