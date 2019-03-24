@@ -82,6 +82,7 @@
     <Compile Include="Assets\scripts\CellScripts\Think!\OnCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Think!\OrCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Think!\XorCell_script.cs" />
+    <Compile Include="Assets\scripts\Debug\Raycaster.cs" />
     <Compile Include="Assets\scripts\DisplayDNA_script.cs" />
     <Compile Include="Assets\scripts\DNAO.cs" />
     <Compile Include="Assets\scripts\Food_script.cs" />

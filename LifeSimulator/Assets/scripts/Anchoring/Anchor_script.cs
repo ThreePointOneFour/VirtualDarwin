@@ -11,31 +11,29 @@ public class Anchor_script : MonoBehaviour {
     public GameObject cell;
     private GameObject coupled = null;
     private FixedJoint2D fixedJoint2D;
-    public readonly PhysicsU.Directions dir;
+    public PhysicsU.Directions dir;
 
     private void Start()
     {
-        Debug.Log(transform.localPosition);
         AttempCoupling();
         layerMask = LayerMask.GetMask("Anchor");
 
-        fixedJoint2D = cell.AddComponent<FixedJoint2D>();
-        fixedJoint2D.anchor = transform.localPosition;
+        CreateJoint();
     }
 
     public void AttempCoupling() {
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, PhysicsU.Dir2Vec(dir), layerMask.value);
+        Vector2 direction = PhysicsU.Dir2Vec(dir);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, PhysicsU.Dir2Vec(dir), 0.2f);
 
         if (!hit) return;
-        if (hit.transform.gameObject == gameObject) return;
+        if (hit.collider.gameObject == gameObject) return;
 
-        GameObject Anchor = hit.transform.gameObject;
+        GameObject Anchor = hit.collider.gameObject;
         Anchor_script anchor_script = Anchor.GetComponent<Anchor_script>();
 
         //check if Raycast hit foreign organism
         if (anchor_script.cell.GetComponent<Cell_script>().GetOrganism() != cell.GetComponent<Cell_script>().GetOrganism())
-            return;
+           return;
 
         Couple(Anchor);
     }
@@ -45,6 +43,8 @@ public class Anchor_script : MonoBehaviour {
         Anchor_script anchor_script = Anchor.GetComponent<Anchor_script>();
 
         coupled = Anchor;
+
+        if (fixedJoint2D == null) CreateJoint();
         fixedJoint2D.connectedBody = anchor_script.cell.GetComponent<Rigidbody2D>();
 
         anchor_script.Couple(gameObject);
@@ -66,4 +66,8 @@ public class Anchor_script : MonoBehaviour {
         return coupled;
     }
 
+    private void CreateJoint() {
+        fixedJoint2D = cell.AddComponent<FixedJoint2D>();
+        fixedJoint2D.anchor = transform.localPosition;
+    }
 }
