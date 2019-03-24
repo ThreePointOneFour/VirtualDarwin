@@ -25,6 +25,6 @@ public class AnchorHub_script : MonoBehaviour {
 
     public GameObject[] GetAttachments()
     {
-        return Attachments;
+        return null;
     }
 }
