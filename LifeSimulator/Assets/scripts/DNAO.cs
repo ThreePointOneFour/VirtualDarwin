@@ -13,7 +13,7 @@ public class DNAO {
         { "dir", 1 },
     };
 
-    private static readonly string[] CellType2Name = new string[]{ "CoreCell", "BoosterCell", "BaseCell", "AndCell", "OrCell",
+    private static readonly string[] CellType2Name = new string[]{ "BirthCell", "BoosterCell", "BaseCell", "AndCell", "OrCell",
         "NotCell", "XorCell", "OnCell", "DownGateCell", "UpGateCell", "LeftGateCell", "RightGateCell", "FilterCell",
         "MouthCell", "PowerPlantCell", "SolarPanelCell" };
 
@@ -48,7 +48,7 @@ public class DNAO {
 
     public static string GetCellById(int id)
     {
-        int space = BaseU.PowOfTen(GetInfoLength("type"));
+        int space = MathU.PowOfTen(GetInfoLength("type"));
         int typesCnt = CellType2Name.Length;
         int index = Mathf.FloorToInt(id / ((float)space / typesCnt));
         return CellType2Name[index];

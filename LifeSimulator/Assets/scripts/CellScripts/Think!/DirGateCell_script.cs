@@ -9,7 +9,7 @@ public class DirGateCell_script : ConductorCell_script
 
     public override void ConductorUpdate()
     {
-        ConductorCell_script dirCon = GetAttachedConductor()[(int)gateDirection];
+        ConductorCell_script dirCon = GetAttachedConductors()[(int)gateDirection];
         if (dirCon != null && dirCon.GetActive())
             SetActive(true);
     }

@@ -16,20 +16,13 @@ public abstract class Cell_script : MonoBehaviour {
     private Looper OneSecondLooper;
     private Looper FiveSecondLooper;
 
-    public Attach_script Attach_Script;
+    public AnchorHub_script AnchorHub_script;
 
     public virtual void Awake()
     {
         HalfSecondLooper = new Looper(HalfSecondLoop, 0.5f);
         OneSecondLooper = new Looper(OneSecondLoop, 1f);
         FiveSecondLooper = new Looper(FiveSecondLoop, 5f);
-    }
-
-    public virtual void Start()
-    {
-        Attach_Script.Attach();
-
-        GameObject core = Attach_Script.RecursiveTagSearch("CoreCell");
     }
 
     public void Update()
@@ -68,23 +61,16 @@ public abstract class Cell_script : MonoBehaviour {
     }
 
     private void PassFoodOn(int amount) {
-        GameObject[] AttachedCells = Attach_Script.GetAttachments();
-        int attachedCnt = Attach_Script.GetAttachedCnt();
-        foreach (GameObject cell in AttachedCells) {
+        IDictionary<PhysicsU.Directions, GameObject> Coupleds =  AnchorHub_script.GetCoupleds();
+        int attachedCnt = AnchorHub_script.GetCoupleCount();
+        foreach (KeyValuePair<PhysicsU.Directions, GameObject> e in Coupleds) {
+            GameObject cell = e.Value;
+
             if (cell == null) continue;
+
             int give = Mathf.FloorToInt(amount / attachedCnt);
             cell.GetComponent<Cell_script>().Feed(give);
         }
-
-    }
-
-    private bool IsConnected()
-    {
-        GameObject core = Attach_Script.RecursiveTagSearch("CoreCell");
-        if (core == null)
-            return false;
-        else
-            return true;
 
     }
 

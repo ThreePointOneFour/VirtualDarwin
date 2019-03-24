@@ -69,8 +69,8 @@ public class DisplayDNA_script : MonoBehaviour {
             b += (dir + type) / 2;
         }
 
-        int typeOpt = BaseU.PowOfTen(DNAO.GetInfoLength("type"));
-        int dirOpt = BaseU.PowOfTen(DNAO.GetInfoLength("dir"));
+        int typeOpt = MathU.PowOfTen(DNAO.GetInfoLength("type"));
+        int dirOpt = MathU.PowOfTen(DNAO.GetInfoLength("dir"));
 
         r = r / amount * (255 / typeOpt);
         g = g / amount * (255 / dirOpt);

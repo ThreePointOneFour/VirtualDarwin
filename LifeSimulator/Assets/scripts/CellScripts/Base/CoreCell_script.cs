@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using KitchenSink;
 
-public class CoreCell_script : Cell_script {
+public class BirthCell_script : Cell_script {
 
     private readonly int savetyFood = 5;
 

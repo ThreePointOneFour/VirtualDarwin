@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KitchenSink;
 
 public abstract class ConductorCell_script : Cell_script {
 
@@ -22,17 +23,19 @@ public abstract class ConductorCell_script : Cell_script {
         }
     }
 
-    protected List<ConductorCell_script> GetAttachedConductor()
+    protected List<ConductorCell_script> GetAttachedConductors()
     {
         List<ConductorCell_script> ret = new List<ConductorCell_script>();
-        GameObject[] Attachments = Attach_Script.GetAttachments();
-        foreach (GameObject go in Attachments)
+        IDictionary<PhysicsU.Directions, GameObject> Coupleds = AnchorHub_script.GetCoupleds();
+        foreach (KeyValuePair<PhysicsU.Directions, GameObject> e in Coupleds)
         {
+            GameObject go = e.Value;
             if (go == null)
             {
                 ret.Add(null);
             }
-            else {
+            else
+            {
                 ConductorCell_script conductor = go.GetComponent<ConductorCell_script>();
                 ret.Add(conductor);
             }
@@ -43,7 +46,7 @@ public abstract class ConductorCell_script : Cell_script {
     protected int GetAttachedActiveCnt()
     {
         int attachedActive = 0;
-        List<ConductorCell_script> acs = GetAttachedConductor();
+        List<ConductorCell_script> acs = GetAttachedConductors();
         foreach (ConductorCell_script conductor in acs)
         {
             if (conductor == null)

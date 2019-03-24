@@ -52,15 +52,6 @@ namespace KitchenSink {
         {
             return new Point((matrix.GetLength(0) / 2), (matrix.GetLength(1) / 2));
         }
-
-        public static int MinMax(int nmb, int min, int max)
-        {
-            return Mathf.Min(Mathf.Max(nmb, min), max);
-        }
-
-        public static int PowOfTen(int nmb) {
-            return Mathf.RoundToInt(Mathf.Pow(10.0F, (float)nmb));
-        }
     }
 
     public static class MathU {
@@ -71,6 +62,16 @@ namespace KitchenSink {
                 return -1;
             else
                 return 0;
+        }
+
+        public static int MinMax(int nmb, int min, int max)
+        {
+            return Mathf.Min(Mathf.Max(nmb, min), max);
+        }
+
+        public static int PowOfTen(int nmb)
+        {
+            return Mathf.RoundToInt(Mathf.Pow(10.0F, (float)nmb));
         }
     }
 
@@ -114,9 +115,7 @@ namespace KitchenSink {
 
         public static void Teleport(GameObject go, Vector2 pos) {
             go.transform.position = pos;
-            foreach (Transform child in go.transform) {
-                Teleport(child.gameObject, pos);
-            }
+            return;
         }
     }
 

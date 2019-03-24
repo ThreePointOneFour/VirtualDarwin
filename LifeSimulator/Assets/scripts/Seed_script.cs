@@ -44,7 +44,7 @@ public class Seed_script : MonoBehaviour {
 
         CellMatrix = PopulateCellMatrix(CellMatrix);
 
-        GameObject CellBox = new GameObject("Organism_" + DNAO.DNA);
+        GameObject Organism = new GameObject("Organism_" + DNAO.DNA);
 
         Vector2 mid = BaseU.GetMatrixMid(CellMatrix).ToVector2();
         for (int i=0; i < CellMatrix.GetLength(0); i++)
@@ -52,10 +52,10 @@ public class Seed_script : MonoBehaviour {
             for(int j=0; j < CellMatrix.GetLength(1); j++)
             {
                 int type = CellMatrix[i, j];
-                CreateCell(mid, type, i, j, CellBox);
+                CreateCell(mid, type, i, j, Organism);
             }
         }
-        return CellBox;
+        return Organism;
     }
 
     private int [,] BuildCellMatrix(int xsize, int ysize = -1)
@@ -99,8 +99,8 @@ public class Seed_script : MonoBehaviour {
             pos.x += dirs[index].x;
             pos.y += dirs[index].y;
 
-            pos.x = BaseU.MinMax(pos.x, 0, CellMatrix.GetLength(0) -1);
-            pos.y = BaseU.MinMax(pos.y, 0, CellMatrix.GetLength(1) -1);
+            pos.x = MathU.MinMax(pos.x, 0, CellMatrix.GetLength(0) -1);
+            pos.y = MathU.MinMax(pos.y, 0, CellMatrix.GetLength(1) -1);
 
             CellMatrix[pos.x, pos.y] = type;
             
@@ -108,15 +108,16 @@ public class Seed_script : MonoBehaviour {
         return CellMatrix;
     }
 
-    private void CreateCell(Vector2 origin, int type, int x, int y, GameObject CellBox)
+    private void CreateCell(Vector2 origin, int type, int x, int y, GameObject Organism)
     {
         if (type == -1)
             return;
         GameObject cell = pl.Load(DNAO.GetCellById(type), "cells");
         if (cell == null) return;
 
-        Vector2 pos = new Vector2(transform.position.x + x - origin.x, transform.position.y + y - origin.y);
-        GameObject go = Instantiate(cell, pos, Quaternion.identity, CellBox.transform) as GameObject;
+        Vector2 pos = new Vector2(x - origin.x, y - origin.y);
+        //Vector2 pos = new Vector2(transform.position.x + x - origin.x, transform.position.y + y - origin.y);
+        GameObject go = Instantiate(cell, pos, Quaternion.identity, Organism.transform) as GameObject;
         go.GetComponent<Cell_script>().DNAO = new DNAO(DNAO.DNA);
     }
 }
