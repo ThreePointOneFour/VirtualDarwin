@@ -7,7 +7,7 @@ public abstract class Cell_script : MonoBehaviour {
 
     public const int nutVal = 5;
     public const int FoodCost = 1;
-    public DNAO DNAO { get; set; }
+    public DNA DNAO { get; set; }
 
     private const int MaxFood = FoodCost * 3;
     private int CurrentFood = MaxFood;

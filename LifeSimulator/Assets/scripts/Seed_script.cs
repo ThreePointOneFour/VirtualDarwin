@@ -9,7 +9,7 @@ public class Seed_script : MonoBehaviour {
     private readonly int MAX_SIZE = 10;
 
     public string customDNA;
-    public DNAO DNAO;
+    public DNA DNAO;
     private PrefabLoaderWrapper_script pl;
 
     private Point[] dirs = new Point[] {
@@ -22,7 +22,7 @@ public class Seed_script : MonoBehaviour {
 
     void Awake()
     {
-        DNAO = new DNAO(customDNA);
+        DNAO = new DNA(customDNA);
         pl = PrefabLoaderWrapper_script.GetPL();
     }
 
@@ -44,7 +44,7 @@ public class Seed_script : MonoBehaviour {
 
         CellMatrix = PopulateCellMatrix(CellMatrix);
 
-        GameObject Organism = new GameObject("Organism_" + DNAO.DNA);
+        GameObject Organism = new GameObject("Organism_" + DNAO.genes);
 
         Vector2 mid = BaseU.GetMatrixMid(CellMatrix).ToVector2();
         for (int i=0; i < CellMatrix.GetLength(0); i++)
@@ -112,12 +112,11 @@ public class Seed_script : MonoBehaviour {
     {
         if (type == -1)
             return;
-        GameObject cell = pl.Load(DNAO.GetCellById(type), "cells");
+        GameObject cell = pl.Load(DNA.GetCellById(type), "cells");
         if (cell == null) return;
 
         Vector2 pos = new Vector2(x - origin.x, y - origin.y);
-        //Vector2 pos = new Vector2(transform.position.x + x - origin.x, transform.position.y + y - origin.y);
         GameObject go = Instantiate(cell, pos, Quaternion.identity, Organism.transform) as GameObject;
-        go.GetComponent<Cell_script>().DNAO = new DNAO(DNAO.DNA);
+        go.GetComponent<Cell_script>().DNAO = new DNA(DNAO.genes);
     }
 }

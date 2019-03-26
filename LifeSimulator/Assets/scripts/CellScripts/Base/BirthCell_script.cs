@@ -52,6 +52,6 @@ public class CoreCell_script : Cell_script {
         Vector2 source = new Vector2(transform.position.x, transform.position.y);
         Vector2 pos = source + Random.insideUnitCircle.normalized * 5;
         GameObject seed = Instantiate(seedprefab, pos, Quaternion.identity) as GameObject;
-        seed.GetComponent<Seed_script>().DNAO = new DNAO(newDNAO);
+        seed.GetComponent<Seed_script>().DNAO = new DNA(newDNAO);
     }
 }

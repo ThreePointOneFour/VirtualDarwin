@@ -52,6 +52,10 @@ namespace KitchenSink {
         {
             return new Point((matrix.GetLength(0) / 2), (matrix.GetLength(1) / 2));
         }
+
+        public static int GetEnumLength(Type enumType) {
+            return System.Enum.GetValues(enumType).Length;
+        }
     }
 
     public static class MathU {
@@ -77,8 +81,7 @@ namespace KitchenSink {
 
     public static class PhysicsU
     {
-        public enum Directions { Rigth, Up, Left, Down };
-
+        public enum Directions { Rigth, Up, Left, Down, None };
         public static Vector2 Dir2Vec(Directions dir)
         {
             switch (dir)
@@ -94,6 +97,9 @@ namespace KitchenSink {
 
                 case Directions.Down:
                     return Vector2.down;
+
+                case Directions.None:
+                    return Vector2.zero;
 
                 default:
                     return Vector2.zero;

@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Backups\Attach_script_back.cs" />
+    <Compile Include="Assets\Backups\DNA_back.cs" />
     <Compile Include="Assets\scripts\Anchoring\Anchor_script.cs" />
     <Compile Include="Assets\scripts\Anchoring\AnchorHub_script.cs" />
     <Compile Include="Assets\scripts\CameraController_script.cs" />
@@ -84,7 +85,8 @@
     <Compile Include="Assets\scripts\CellScripts\Think!\XorCell_script.cs" />
     <Compile Include="Assets\scripts\Debug\Raycaster.cs" />
     <Compile Include="Assets\scripts\DisplayDNA_script.cs" />
-    <Compile Include="Assets\scripts\DNAO.cs" />
+    <Compile Include="Assets\scripts\DNA\DNA.cs" />
+    <Compile Include="Assets\scripts\DNA\Gene.cs" />
     <Compile Include="Assets\scripts\Food_script.cs" />
     <Compile Include="Assets\scripts\FoodDisplay_script.cs" />
     <Compile Include="Assets\scripts\LiveScripts\CellCreator_script.cs" />

@@ -7,7 +7,7 @@ using KitchenSink;
 
 public class DisplayDNA_script : MonoBehaviour {
         
-    private DNAO DNAO;
+    private DNA DNAO;
 
     private static readonly int MatrixSize = 3;
     private List<string>[,] cMatrix = new List<string>[MatrixSize, MatrixSize];
@@ -24,7 +24,7 @@ public class DisplayDNA_script : MonoBehaviour {
     {
         List<IDictionary<string, int>> parsedDNA = DNAO.ParseDNA();
 
-        float step = (DNAO.DNA.Length / DNAO.GetGeneLength()) / (Mathf.Pow(MatrixSize, 2));
+        float step = (DNAO.genes.Length / DNA.GetGeneLength()) / (Mathf.Pow(MatrixSize, 2));
 
         foreach (IDictionary<string, int> dic in parsedDNA)
         {
@@ -54,23 +54,19 @@ public class DisplayDNA_script : MonoBehaviour {
     private Color GetColor(List<string> genes)
     {
 
-        int r = 0;
-        int g = 0;
-        int b = 0;
-
         int amount = genes.Count;
 
         foreach(string gene in genes)
         {
-            int type = DNAO.GetInfo(gene, "type");
-            int dir = DNAO.GetInfo(gene, "dir");
+            int type = DNA.GetInfo(gene, "type");
+            int dir = DNA.GetInfo(gene, "dir");
             r += dir;
             g += type;
             b += (dir + type) / 2;
         }
 
-        int typeOpt = MathU.PowOfTen(DNAO.GetInfoLength("type"));
-        int dirOpt = MathU.PowOfTen(DNAO.GetInfoLength("dir"));
+        int typeOpt = MathU.PowOfTen(DNA.GetInfoLength("type"));
+        int dirOpt = MathU.PowOfTen(DNA.GetInfoLength("dir"));
 
         r = r / amount * (255 / typeOpt);
         g = g / amount * (255 / dirOpt);

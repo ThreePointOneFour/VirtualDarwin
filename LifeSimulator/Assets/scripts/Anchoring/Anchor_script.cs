@@ -48,8 +48,6 @@ public class Anchor_script : MonoBehaviour {
         fixedJoint2D.connectedBody = anchor_script.cell.GetComponent<Rigidbody2D>();
 
         anchor_script.Couple(gameObject);
-
-        Debug.Log(gameObject + " of " + cell + " coupled with" + Anchor + " of " + anchor_script.cell);
     }
 
     public void Uncouple() {
