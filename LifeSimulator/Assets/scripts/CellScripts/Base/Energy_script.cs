@@ -8,14 +8,19 @@ public class Energy_script : MonoBehaviour
     public Cell_script Cell_script;
     public AnchorHub_script AnchorHub_script;
 
-    public const int FoodCost = 1;
-    public const int MaxFood = FoodCost * 3;
-    public const int StartFood = MaxFood;
+    public int FoodCost = 1;
+    public int MaxFood = -1;
+    public int StartFood = -1;
 
-    private int CurrentFood = StartFood;
+    private int CurrentFood;
 
     public void Start()
     {
+        if (MaxFood == -1) MaxFood = FoodCost * 3;
+        if (StartFood == -1) StartFood = FoodCost * 3;
+
+        CurrentFood = StartFood;
+
         Cell_script.FiveSecondLooper.Add(HungerLoop);
         Cell_script.HalfSecondLooper.Add(PassFoodOn);
     }

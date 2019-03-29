@@ -28,6 +28,6 @@ public class SolarPanelCell_script : FoodCreatorCell_script {
     }
 
     private bool IsStill() {
-        return rig2D.velocity.magnitude > 0.1;
+        return rig2D.velocity.magnitude < 0.01f;
     }
 }
