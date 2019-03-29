@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using KitchenSink;
 
 public class DirGateCell_script : ConductorCell_script
 {
-    public enum Dir {right, up, left, down };
-    public Dir gateDirection;
+    public PhysicsU.Directions gateDirection;
 
     public override void ConductorUpdate()
     {
-        ConductorCell_script dirCon = GetAttachedConductors()[(int)gateDirection];
-        if (dirCon != null && dirCon.GetActive())
+        IDictionary<PhysicsU.Directions, ConductorCell_script> Conductors = GetAttachedConductors();
+
+        if (!Conductors.ContainsKey(gateDirection)) return;
+
+        if (Conductors[gateDirection].GetActive())
             SetActive(true);
+
     }
 }

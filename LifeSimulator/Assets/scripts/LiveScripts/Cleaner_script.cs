@@ -11,7 +11,7 @@ public class Cleaner_script : MonoBehaviour {
 
     void Start()
     {
-        CleanLooper = new Looper(CleanEmpty, loop);
+        CleanLooper = new Looper(loop, true, CleanEmpty);
     }
 
     // Update is called once per frame

@@ -14,15 +14,15 @@ public class Anchor_script : MonoBehaviour {
 
     private void Start()
     {
+        layerMask = LayerMask.GetMask("Anchor"); 
         AttempCoupling();
-        layerMask = LayerMask.GetMask("Anchor");
 
         CreateJoint();
     }
 
     public void AttempCoupling() {
         Vector2 direction = PhysicsU.Dir2Vec(dir);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, PhysicsU.Dir2Vec(dir), 0.2f);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, PhysicsU.Dir2Vec(dir), 0.2f, layerMask.value);
 
         if (!hit) return;
         if (hit.collider.gameObject == gameObject) return;
@@ -45,7 +45,7 @@ public class Anchor_script : MonoBehaviour {
 
         if (fixedJoint2D == null) CreateJoint();
         fixedJoint2D.connectedBody = anchor_script.cell.GetComponent<Rigidbody2D>();
-
+        
         anchor_script.Couple(gameObject);
     }
 
@@ -61,6 +61,12 @@ public class Anchor_script : MonoBehaviour {
 
     public GameObject GetCoupled() {
         return coupled;
+    }
+
+    public GameObject GetCoupledCell() {
+        GameObject coupled = GetCoupled();
+        if (coupled == null) return null;
+        else return coupled.GetComponent<Anchor_script>().cell;
     }
 
     private void CreateJoint() {

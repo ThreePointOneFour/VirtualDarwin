@@ -4,10 +4,9 @@ using UnityEngine;
 
 public abstract class FoodCreatorCell_script : Cell_script {
 
-    public override void Awake()
+    public void Awake()
     {
-        base.Awake();
-        HalfSecondLoop += CreateFoodLoop;
+        HalfSecondLooper.Add(CreateFoodLoop);
     }
 
     private void CreateFoodLoop() {

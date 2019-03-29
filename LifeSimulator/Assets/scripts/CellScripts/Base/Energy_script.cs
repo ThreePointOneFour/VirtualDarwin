@@ -14,23 +14,14 @@ public class Energy_script : MonoBehaviour
 
     private int CurrentFood = StartFood;
 
-    public void Awake()
+    public void Start()
     {
-        Cell_script.FiveSecondLoop += HungerLoop;
-        Cell_script.HalfSecondLoop += PassFoodOnLoop;
+        Cell_script.FiveSecondLooper.Add(HungerLoop);
+        Cell_script.HalfSecondLooper.Add(PassFoodOn);
     }
 
     public void HungerLoop() {
         Hunger(FoodCost);
-    }
-
-    public void PassFoodOnLoop() {
-        int exessFood = GetExess();
-        if (exessFood > 0)
-        {
-            PassFoodOn(exessFood);
-            Hunger(exessFood);
-        }
     }
 
     public void Hunger(int amount)
@@ -59,19 +50,33 @@ public class Energy_script : MonoBehaviour
         return CurrentFood - MaxFood;
     }
 
-    private void PassFoodOn(int amount)
+    private void PassFoodOn()
     {
         IDictionary<PhysicsU.Directions, GameObject> Coupleds = AnchorHub_script.GetCoupleds();
         int attachedCnt = AnchorHub_script.GetCoupledCount();
+
+        int exess = GetExess();
+
+        if (exess < 1) return;
+        if (attachedCnt == 0) return;
+
+        int give = Mathf.CeilToInt(exess / attachedCnt);
         foreach (KeyValuePair<PhysicsU.Directions, GameObject> e in Coupleds)
         {
+            exess = GetExess();
+            if (exess < 1) return;
+
             GameObject cell = e.Value;
 
             if (cell == null) continue;
 
-            int give = Mathf.FloorToInt(amount / attachedCnt);
-            cell.GetComponent<Energy_script>().Feed(give);
+            FeedCell(cell, give);
         }
 
+    }
+
+    private void FeedCell(GameObject cell, int amount) {
+        cell.GetComponent<Energy_script>().Feed(amount);
+        Hunger(amount);
     }
 }

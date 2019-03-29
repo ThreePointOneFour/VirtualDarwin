@@ -17,7 +17,11 @@ public class AnchorHub_script : MonoBehaviour {
 
     public void Start()
     {
-        FillAnchors();
+        foreach (DirAnchorEntry DAE in AnchorsInput)
+        {
+            Anchors.Add(DAE.Direction, DAE.Anchor);
+            DAE.Anchor.GetComponent<Anchor_script>().AttempCoupling();
+        }
     }
 
 
@@ -25,7 +29,7 @@ public class AnchorHub_script : MonoBehaviour {
     {
         IDictionary<PhysicsU.Directions, GameObject> Coupleds = GetCoupleds();
         int cnt = 0;
-        foreach (KeyValuePair<PhysicsU.Directions, GameObject> e in Anchors)
+        foreach (KeyValuePair<PhysicsU.Directions, GameObject> e in Coupleds)
         {
             if (e.Value != null)
                 cnt++;
@@ -41,29 +45,22 @@ public class AnchorHub_script : MonoBehaviour {
 
     public IDictionary<PhysicsU.Directions, GameObject> GetCoupleds()
     {
-        FillAnchors();
 
         IDictionary<PhysicsU.Directions, GameObject> ret = new Dictionary<PhysicsU.Directions, GameObject>();
         foreach (KeyValuePair<PhysicsU.Directions, GameObject> e in Anchors)
         {
-            ret.Add(e.Key, GetAnchorCouple(e.Value));
+            GameObject coupledCell = GetAnchorCouple(e.Value);
+            if (coupledCell == null)
+                continue;
+
+            ret.Add(e.Key, coupledCell);
         }
         return ret;
     }
 
-    private void FillAnchors() {
-        if (Anchors.Count > 0) return;
-
-        foreach (DirAnchorEntry DAE in AnchorsInput)
-        {
-            Anchors.Add(DAE.Direction, DAE.Anchor);
-            DAE.Anchor.GetComponent<Anchor_script>().AttempCoupling();
-        }
-    }
 
     private GameObject GetAnchorCouple(GameObject Anchor) {
         Anchor_script Anchor_script = Anchor.GetComponent<Anchor_script>();
-        return Anchor_script.GetCoupled();
-
+        return Anchor_script.GetCoupledCell();
     }
 }

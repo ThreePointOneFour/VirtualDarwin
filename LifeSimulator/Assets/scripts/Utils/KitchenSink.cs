@@ -11,21 +11,31 @@ namespace KitchenSink {
         private float LoopAt;
         private Action loopFunc;
 
-        public Looper(Action loopFunc, float LoopAt, bool instant = true)
+        public Looper(float LoopAt, bool instant = true, Action loopFunc = null)
         {
             this.LoopAt = LoopAt;
-            this.loopFunc = loopFunc;
             if (instant) timer = LoopAt;
+            if (loopFunc != null) this.loopFunc = loopFunc;
         }
 
         public void Loop(float deltaTime)
         {
+            if (loopFunc == null) return;
+
             timer += deltaTime;
             if (timer >= LoopAt)
             {
                 loopFunc();
                 timer = 0.0f;
             }
+        }
+
+        public void Add(Action addFunc) {
+            loopFunc += addFunc;
+        }
+
+        public void Remove(Action removeFunc) {
+            loopFunc -= removeFunc;
         }
     }
 
@@ -56,6 +66,23 @@ namespace KitchenSink {
         public static int GetEnumLength(Type enumType) {
             return System.Enum.GetValues(enumType).Length;
         }
+
+        public static string[] StringSplit(string str, int chunks = 2) {
+            string[] ret = new string[chunks];
+
+            int strLen = str.Length;
+            float chunkLength = str.Length / (float) chunks;
+            float counter = 0f;
+            for (int i = 0; i < chunks; i++) {
+
+                int start = Mathf.FloorToInt(counter);
+                counter += chunkLength;
+                int end = Mathf.FloorToInt(counter);
+
+                 ret[i] = str.Substring(start, end - start);
+            }
+            return ret;
+        }
     }
 
     public static class MathU {
@@ -77,6 +104,16 @@ namespace KitchenSink {
         {
             return Mathf.RoundToInt(Mathf.Pow(10.0F, (float)nmb));
         }
+
+        public static float Percentify(int nmb)
+        {
+            return (float)nmb / (PowOfTen(NmbLenght(nmb)));
+        }
+
+        public static int NmbLenght(int nmb) {
+            return ("" + nmb).Length;
+        }
+
     }
 
     public static class PhysicsU

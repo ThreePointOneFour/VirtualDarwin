@@ -10,12 +10,11 @@ public class BirthCell_script : Cell_script {
 
     private int birthCost = int.MaxValue;
 
-    public override void Awake()
+    public void Awake()
     {
-        base.Awake();
         pl = PrefabLoaderWrapper_script.GetPL();
 
-        FiveSecondLoop += CheckBirth;
+        FiveSecondLooper.Add(CheckBirth);
     }
 
     private void CheckBirth()

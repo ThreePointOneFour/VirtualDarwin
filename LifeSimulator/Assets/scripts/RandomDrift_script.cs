@@ -13,7 +13,7 @@ public class RandomDrift_script : MonoBehaviour {
 
     private void Start()
     {
-        Looper = new Looper(RandDrift, 5.0f);
+        Looper = new Looper(5.0f, true, RandDrift);
     }
 
     void Update () {

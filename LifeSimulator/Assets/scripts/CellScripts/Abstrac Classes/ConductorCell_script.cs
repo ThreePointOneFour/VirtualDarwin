@@ -10,10 +10,9 @@ public abstract class ConductorCell_script : Cell_script {
 
     public abstract void ConductorUpdate();
 
-    public override void Awake()
+    public void Awake()
     {
-        base.Awake();
-        HalfSecondLoop += ConductorUpdate;
+        HalfSecondLooper.Add(ConductorUpdate);
     }
 
     protected void LateUpdate()
@@ -23,22 +22,17 @@ public abstract class ConductorCell_script : Cell_script {
         }
     }
 
-    protected List<ConductorCell_script> GetAttachedConductors()
+    protected IDictionary<PhysicsU.Directions, ConductorCell_script> GetAttachedConductors()
     {
-        List<ConductorCell_script> ret = new List<ConductorCell_script>();
+        IDictionary<PhysicsU.Directions, ConductorCell_script> ret = new Dictionary<PhysicsU.Directions, ConductorCell_script>();
         IDictionary<PhysicsU.Directions, GameObject> Coupleds = AnchorHub_script.GetCoupleds();
         foreach (KeyValuePair<PhysicsU.Directions, GameObject> e in Coupleds)
         {
             GameObject go = e.Value;
-            if (go == null)
-            {
-                ret.Add(null);
-            }
-            else
-            {
-                ConductorCell_script conductor = go.GetComponent<ConductorCell_script>();
-                ret.Add(conductor);
-            }
+
+            ConductorCell_script conductor = go.GetComponent<ConductorCell_script>();
+            if (conductor != null)
+                ret.Add(e.Key, conductor);
         }
         return ret;
     }
@@ -46,12 +40,10 @@ public abstract class ConductorCell_script : Cell_script {
     protected int GetAttachedActiveCnt()
     {
         int attachedActive = 0;
-        List<ConductorCell_script> acs = GetAttachedConductors();
-        foreach (ConductorCell_script conductor in acs)
+        IDictionary<PhysicsU.Directions, ConductorCell_script> AttachedConductors = GetAttachedConductors();
+        foreach (KeyValuePair<PhysicsU.Directions, ConductorCell_script> e in AttachedConductors)
         {
-            if (conductor == null)
-                continue;
-            if (conductor.GetActive())
+            if (e.Value.GetActive())
                 attachedActive++;;
         }
         return attachedActive;

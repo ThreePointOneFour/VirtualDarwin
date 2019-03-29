@@ -18,6 +18,7 @@ public class DNA
     }
 
     public DNA(int geneAmount = 1) {
+        Genes = new List<Gene>();
         for (int i = 0; i < geneAmount; i++)
         {
             Genes.Add(new Gene());

@@ -8,24 +8,12 @@ public abstract class Cell_script : MonoBehaviour {
     private DNA DNA = null;
     public const int nutVal = 5;
 
-    private Looper HalfSecondLooper;
-    private Looper OneSecondLooper;
-    private Looper FiveSecondLooper;
-
-    public System.Action HalfSecondLoop;
-    public System.Action OneSecondLoop;
-    public System.Action FiveSecondLoop;
+    public Looper HalfSecondLooper = new Looper(0.5f);
+    public Looper OneSecondLooper = new Looper(1f);
+    public Looper FiveSecondLooper = new Looper(5f);
 
     public AnchorHub_script AnchorHub_script;
     public Energy_script Energy_script;
-
-    public virtual void Awake()
-    {
-
-        HalfSecondLooper = new Looper(HalfSecondLoop, 0.5f);
-        OneSecondLooper = new Looper(OneSecondLoop, 1f);
-        FiveSecondLooper = new Looper(FiveSecondLoop, 5f);
-    }
 
     public void Update()
     {
@@ -51,7 +39,7 @@ public abstract class Cell_script : MonoBehaviour {
     }
 
     public void SetDNA(DNA DNA) {
-        if(DNA == null)
+        if(this.DNA == null)
             this.DNA = DNA;
     }
 
