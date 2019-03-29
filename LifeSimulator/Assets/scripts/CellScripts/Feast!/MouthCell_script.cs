@@ -10,6 +10,6 @@ public class MouthCell_script : Cell_script {
         Food_script fs = col.GetComponent<Food_script>();
 
         if (fs != null)
-            Feed(fs.Eat());
+            Energy_script.Feed(fs.Eat());
     }
 }

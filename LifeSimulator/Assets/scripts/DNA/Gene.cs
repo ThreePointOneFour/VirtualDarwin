@@ -2,17 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using KitchenSink;
+using DNAUtils;
 
-[System.Serializable]
 public class Gene
 {
-    public enum CellType
-    {
-        BirthCell, BoosterCell, BaseCell, AndCell, OrCell,
-        NotCell, XorCell, OnCell, DownGateCell, UpGateCell, LeftGateCell, RightGateCell, FilterCell,
-        MouthCell, PowerPlantCell, SolarPanelCell
-    }
-
     private readonly PhysicsU.Directions Direction;
     private readonly CellType Type;
 

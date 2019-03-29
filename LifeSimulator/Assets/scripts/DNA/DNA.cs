@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DNA : MonoBehaviour
+public class DNA
 {
     public static float mutationChance = 0.2f;
     public static float GeneDoubleChance = 0.1f;
@@ -13,14 +13,18 @@ public class DNA : MonoBehaviour
         this.Genes = Genes;
     }
 
+    public DNA(Gene[] Genes) {
+        this.Genes = new List<Gene>(Genes);
+    }
+
     public DNA(int geneAmount = 1) {
-        for(int i = 0; i< geneAmount; i++)
+        for (int i = 0; i < geneAmount; i++)
         {
             Genes.Add(new Gene());
         }
     }
 
-    public List<Gene> GetDNA() {
+    public List<Gene> GetGenes() {
         return Genes;
     }
 
@@ -34,6 +38,7 @@ public class DNA : MonoBehaviour
 
     public DNA Duplicate() {
         List<Gene> newGenes = new List<Gene>();
+        List<Gene> Genes = GetGenes();
         float individualMutProb = mutationChance / GetLength();
 
         foreach (Gene gene in Genes)
@@ -49,16 +54,30 @@ public class DNA : MonoBehaviour
         return new DNA(newGenes);
     }
 
-    public Color GetColor() {
-        int nmb = 0;
+    public int GetBirthCost() {
+        PrefabLoaderWrapper_script pl = PrefabLoaderWrapper_script.GetPL();
+        List<Gene> Genes = GetGenes();
+
+        int sum = 0;
         foreach (Gene gene in Genes)
         {
-            nmb += gene.ToNumber();
-        }
-        string hex = nmb.ToString("x");
+            string type = gene.GetCellType().ToString();
 
-        Color ret;
-        ColorUtility.TryParseHtmlString(hex, out ret);
-        return ret;
+            GameObject cell = pl.Load(type, "cells");
+            if (cell == null) continue;
+            sum += cell.GetComponent<Cell_script>().GetStartCost();
+        }
+        return sum;
+    }
+
+    public override string ToString() {
+        string str = "";
+        List<Gene> Genes = GetGenes();
+        foreach (Gene gene in Genes)
+        {
+            str += "" + gene.ToNumber();
+        }
+
+        return str;
     }
 }

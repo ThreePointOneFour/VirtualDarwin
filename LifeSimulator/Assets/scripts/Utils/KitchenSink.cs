@@ -48,7 +48,7 @@ namespace KitchenSink {
             return front + change + back;
         }
 
-        public static Point GetMatrixMid(int[,] matrix)
+        public static Point GetMatrixMid<T>(T[,] matrix)
         {
             return new Point((matrix.GetLength(0) / 2), (matrix.GetLength(1) / 2));
         }
@@ -81,11 +81,14 @@ namespace KitchenSink {
 
     public static class PhysicsU
     {
-        public enum Directions { Rigth, Up, Left, Down, None };
+        public enum Directions {None, Rigth, Up, Left, Down };
         public static Vector2 Dir2Vec(Directions dir)
         {
             switch (dir)
             {
+                case Directions.None:
+                    return Vector2.zero;
+
                 case Directions.Rigth:
                     return Vector2.right;
 
@@ -97,9 +100,6 @@ namespace KitchenSink {
 
                 case Directions.Down:
                     return Vector2.down;
-
-                case Directions.None:
-                    return Vector2.zero;
 
                 default:
                     return Vector2.zero;

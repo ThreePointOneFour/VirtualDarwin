@@ -10,10 +10,10 @@ public abstract class ConductorCell_script : Cell_script {
 
     public abstract void ConductorUpdate();
 
-    protected override void HalfSecondLoop()
+    public override void Awake()
     {
-        base.HalfSecondLoop();
-        ConductorUpdate();
+        base.Awake();
+        HalfSecondLoop += ConductorUpdate;
     }
 
     protected void LateUpdate()

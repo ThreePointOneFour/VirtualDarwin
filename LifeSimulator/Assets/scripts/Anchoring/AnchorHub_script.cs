@@ -21,7 +21,7 @@ public class AnchorHub_script : MonoBehaviour {
     }
 
 
-    public int GetCoupleCount()
+    public int GetCoupledCount()
     {
         IDictionary<PhysicsU.Directions, GameObject> Coupleds = GetCoupleds();
         int cnt = 0;

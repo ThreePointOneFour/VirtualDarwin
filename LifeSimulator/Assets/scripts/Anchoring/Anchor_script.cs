@@ -7,7 +7,6 @@ public class Anchor_script : MonoBehaviour {
 
     private LayerMask layerMask;
 
-
     public GameObject cell;
     private GameObject coupled = null;
     private FixedJoint2D fixedJoint2D;

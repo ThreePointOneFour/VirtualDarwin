@@ -60,7 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Backups\Attach_script_back.cs" />
+    <Compile Include="Assets\Backups\Attach_script_Back.cs" />
     <Compile Include="Assets\Backups\DNA_back.cs" />
     <Compile Include="Assets\scripts\Anchoring\Anchor_script.cs" />
     <Compile Include="Assets\scripts\Anchoring\AnchorHub_script.cs" />
@@ -70,7 +70,8 @@
     <Compile Include="Assets\scripts\CellScripts\Abstrac Classes\FoodCreatorCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Base\BaseCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Base\BirthCell_script.cs" />
-    <Compile Include="Assets\scripts\CellScripts\Base\CoreCell_script.cs" />
+    <Compile Include="Assets\scripts\CellScripts\Base\Color_script.cs" />
+    <Compile Include="Assets\scripts\CellScripts\Base\Energy_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Feast!\FilterCell_Script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Feast!\MouthCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Feast!\PowerPlantCell_script.cs" />
@@ -84,7 +85,6 @@
     <Compile Include="Assets\scripts\CellScripts\Think!\OrCell_script.cs" />
     <Compile Include="Assets\scripts\CellScripts\Think!\XorCell_script.cs" />
     <Compile Include="Assets\scripts\Debug\Raycaster.cs" />
-    <Compile Include="Assets\scripts\DisplayDNA_script.cs" />
     <Compile Include="Assets\scripts\DNA\DNA.cs" />
     <Compile Include="Assets\scripts\DNA\Gene.cs" />
     <Compile Include="Assets\scripts\Food_script.cs" />
@@ -98,6 +98,7 @@
     <Compile Include="Assets\scripts\RandomDrift_script.cs" />
     <Compile Include="Assets\scripts\RectTransformFix_script.cs" />
     <Compile Include="Assets\scripts\Seed_script.cs" />
+    <Compile Include="Assets\scripts\Utils\DNAUtills.cs" />
     <Compile Include="Assets\scripts\Utils\KitchenSink.cs" />
     <Compile Include="Assets\scripts\Utils\Point.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
