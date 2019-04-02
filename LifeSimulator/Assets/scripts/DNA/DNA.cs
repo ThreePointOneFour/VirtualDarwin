@@ -8,9 +8,13 @@ public class DNA
     public static float GeneDoubleChance = 0.1f;
     private List<Gene> Genes;
 
-    public DNA(List<Gene> Genes)
+    public DNA(List<Gene> Genes, int additionalGenes = 0)
     {
         this.Genes = Genes;
+
+        for (int i = 0; i < additionalGenes; i++) {
+            Genes.Add(new Gene());
+        }
     }
 
     public DNA(Gene[] Genes) {
@@ -80,5 +84,21 @@ public class DNA
         }
 
         return str;
+    }
+
+    public float ComparePercent(DNA CompareTo) {
+
+        List<Gene> thisGenes = GetGenes();
+        List<Gene> compareGenes = CompareTo.GetGenes();
+
+        int minLength = Mathf.Min(GetLength(), CompareTo.GetLength());
+        int maxLength = Mathf.Max(GetLength(), CompareTo.GetLength());
+
+        int matches = 0;
+        for (int i = 0; i < minLength; i++) {
+            if (thisGenes[i].Equals(compareGenes[i]))
+                matches++;
+        }
+        return matches / maxLength;
     }
 }

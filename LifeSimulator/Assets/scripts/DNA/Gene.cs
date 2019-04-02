@@ -63,4 +63,9 @@ public class Gene
         string nbm = "" + dir + "" + type;
         return int.Parse(nbm);
     }
+
+    public bool Equals(Gene compareTo) {
+        return (compareTo.GetCellType() == GetCellType() &&
+                compareTo.GetDirection() == GetDirection());
+    }
 }

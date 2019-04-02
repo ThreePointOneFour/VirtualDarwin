@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace KitchenSink {
+
     public class Looper
     {
 
         private float timer = 0.0f;
         private float LoopAt;
-        private Action loopFunc;
+        private System.Action loopFunc;
 
-        public Looper(float LoopAt, bool instant = true, Action loopFunc = null)
+        public Looper(float LoopAt, bool instant = true, System.Action loopFunc = null)
         {
             this.LoopAt = LoopAt;
             if (instant) timer = LoopAt;
@@ -30,11 +30,11 @@ namespace KitchenSink {
             }
         }
 
-        public void Add(Action addFunc) {
+        public void Add(System.Action addFunc) {
             loopFunc += addFunc;
         }
 
-        public void Remove(Action removeFunc) {
+        public void Remove(System.Action removeFunc) {
             loopFunc -= removeFunc;
         }
     }
@@ -48,7 +48,7 @@ namespace KitchenSink {
 
         public static int Str2int(string s)
         {
-            return Int32.Parse(s);
+            return int.Parse(s);
         }
 
         public static string ChangeStrAt(string str, char change, int at)
@@ -63,7 +63,7 @@ namespace KitchenSink {
             return new Point((matrix.GetLength(0) / 2), (matrix.GetLength(1) / 2));
         }
 
-        public static int GetEnumLength(Type enumType) {
+        public static int GetEnumLength(System.Type enumType) {
             return System.Enum.GetValues(enumType).Length;
         }
 
@@ -71,7 +71,7 @@ namespace KitchenSink {
             string[] ret = new string[chunks];
 
             int strLen = str.Length;
-            float chunkLength = str.Length / (float) chunks;
+            float chunkLength = str.Length / (float)chunks;
             float counter = 0f;
             for (int i = 0; i < chunks; i++) {
 
@@ -79,10 +79,24 @@ namespace KitchenSink {
                 counter += chunkLength;
                 int end = Mathf.FloorToInt(counter);
 
-                 ret[i] = str.Substring(start, end - start);
+                ret[i] = str.Substring(start, end - start);
             }
             return ret;
         }
+
+        public static float StringPercentageCompare(string s1, string s2) {
+            int matching = 0;
+
+            int minLength = Mathf.Min(s1.Length, s2.Length);
+            int maxLength = Mathf.Max(s1.Length, s2.Length);
+
+            for (int i = 0; i < minLength; i++) {
+                if (s1[i] == s2[i])
+                    matching++;
+            }
+            return matching / maxLength;
+        }
+
     }
 
     public static class MathU {
@@ -118,7 +132,7 @@ namespace KitchenSink {
 
     public static class PhysicsU
     {
-        public enum Directions {None, Rigth, Up, Left, Down };
+        public enum Directions { None, Rigth, Up, Left, Down };
         public static Vector2 Dir2Vec(Directions dir)
         {
             switch (dir)
@@ -162,6 +176,29 @@ namespace KitchenSink {
         }
     }
 
+    public static class RandomU {
+
+        public static string RandomString(int length) {
+            string randomString = "";
+            for (int i = 0; i < length; i++) {
+                randomString += (char) Random.Range(97,122);
+            }
+            return randomString;
+        }
+
+
+    }
+
+    public static class ListU {
+
+        public static T TryGet<T>(List<T> List, int index) {
+            if (index > List.Count)
+                return default;
+            else return List[index];
+        }
+
+    }
+
     public class PrefabLoader
     {
 
@@ -184,7 +221,7 @@ namespace KitchenSink {
 
         private GameObject LoadAndAdd(string prefabName, string path, bool addPath = false)
         {
-            string fullPath = (path==""?"":path + "/") + prefabName + "_prefab";
+            string fullPath = (path==""?"":(path + "/")) + prefabName + "_prefab";
             GameObject prefabO = Resources.Load(fullPath) as GameObject;
             if (addPath)
             {

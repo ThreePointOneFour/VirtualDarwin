@@ -6,29 +6,21 @@ using DNAUtils;
 
 public class Seed_script : MonoBehaviour {
 
-    [System.Serializable]
-    public class GeneEntry
-    {
-        public PhysicsU.Directions Direction;
-        public CellType Type;
-    }
-
     public readonly int MAX_SIZE = 10;
 
     public GeneEntry[] customDNA;
     private DNA DNA;
     private PrefabLoaderWrapper_script pl;
+    GameObject OrganismPrefab;
 
     void Awake()
     {
         pl = PrefabLoaderWrapper_script.GetPL();
         if (customDNA != null) {
-            List<Gene> Genes = new List<Gene>();
-            foreach (GeneEntry e in customDNA) {
-                Genes.Add(new Gene(e.Direction, e.Type));
-            }
-            DNA = new DNA(Genes);
+            DNA = new DNA(DNAU.GeneEntries2GeneList(customDNA));
         }
+
+        OrganismPrefab = pl.Load("Organism");
     }
 
     public void SetDNA(DNA DNA) {
@@ -51,7 +43,8 @@ public class Seed_script : MonoBehaviour {
         CellType[,] CellMatrix = BuildCellMatrix(MAX_SIZE);
         PopulateCellMatrix(ref CellMatrix);
 
-        GameObject Organism = new GameObject("Organism_" + DNA.ToString());
+        GameObject Organism = Instantiate(OrganismPrefab);
+
 
         Vector2 mid = BaseU.GetMatrixMid(CellMatrix).ToVector2();
         for (int i=0; i < CellMatrix.GetLength(0); i++)
