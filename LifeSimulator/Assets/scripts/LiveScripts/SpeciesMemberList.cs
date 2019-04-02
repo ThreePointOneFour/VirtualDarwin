@@ -5,7 +5,7 @@ using KitchenSink;
 
 public class SpeciesMemberList {
 
-    public float SimilarityGame = 0.95f;
+    public float SimilarityGame = 0.8f;
 
     private List<GameObject> MemberList;
     private readonly string SpeciesName;
@@ -15,6 +15,8 @@ public class SpeciesMemberList {
         if (name == null)
             name = AutoCreateName();
 
+        SpeciesName = name;
+
         MemberList = new List<GameObject>();
         MemberList.Add(FirstMember);
 
@@ -22,7 +24,7 @@ public class SpeciesMemberList {
 
     private string AutoCreateName() {
 
-        return RandomU.RandomString(2) + Random.Range(0, 9) + Random.Range(0, 9);
+        return (RandomU.RandomString(2).ToUpper() + Random.Range(0, 9));
     }
 
     public bool TryAdd(GameObject contender) {
@@ -35,8 +37,11 @@ public class SpeciesMemberList {
     }
 
     private float Compare(GameObject orga1, GameObject orga2) {
-        DNA DNA1 = orga1.GetComponent<Organism_script>().GetDNA();
-        DNA DNA2 = orga1.GetComponent<Organism_script>().GetDNA();
+        Organism_script os1 = orga1.GetComponent<Organism_script>();
+        Organism_script os2 = orga2.GetComponent<Organism_script>();
+
+        DNA DNA1 = os1.GetDNA();
+        DNA DNA2 = os2.GetDNA();
 
         return DNA1.ComparePercent(DNA2);
     }

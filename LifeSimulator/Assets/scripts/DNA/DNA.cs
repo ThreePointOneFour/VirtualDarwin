@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DNAUtils;
+using System.Linq;
 
 public class DNA
 {
@@ -59,6 +61,18 @@ public class DNA
         return new DNA(newGenes);
     }
 
+    public DNA PerfectDuplicate() {
+        List<Gene> newGenes = new List<Gene>();
+        List<Gene> Genes = GetGenes();
+
+        foreach (Gene gene in Genes)
+        {
+            Gene newGene = gene.Clone(0);
+            newGenes.Add(newGene);
+        }
+        return new DNA(newGenes);
+    }
+
     public int GetBirthCost() {
         PrefabLoaderWrapper_script pl = PrefabLoaderWrapper_script.GetPL();
         List<Gene> Genes = GetGenes();
@@ -67,6 +81,8 @@ public class DNA
         foreach (Gene gene in Genes)
         {
             string type = gene.GetCellType().ToString();
+
+            if (type == "None") continue;
 
             GameObject cell = pl.Load(type, "cells");
             if (cell == null) continue;
@@ -86,7 +102,8 @@ public class DNA
         return str;
     }
 
-    public float ComparePercent(DNA CompareTo) {
+    public float ComparePercent(DNA CompareTo)
+    {
 
         List<Gene> thisGenes = GetGenes();
         List<Gene> compareGenes = CompareTo.GetGenes();
@@ -95,10 +112,35 @@ public class DNA
         int maxLength = Mathf.Max(GetLength(), CompareTo.GetLength());
 
         int matches = 0;
-        for (int i = 0; i < minLength; i++) {
+        for (int i = 0; i < minLength; i++)
+        {
             if (thisGenes[i].Equals(compareGenes[i]))
                 matches++;
         }
         return matches / maxLength;
+    }
+
+    public KeyValuePair<CellType, int>[] GetTypeFrequency() {
+        SortedDictionary<CellType, int> TypeFrequencyList = new SortedDictionary<CellType, int>();
+        List<Gene> Genes = GetGenes();
+
+        foreach (Gene gene in Genes) {
+            CellType type = gene.GetCellType();
+            if (type == CellType.None) continue;
+            if (TypeFrequencyList.ContainsKey(type))
+                TypeFrequencyList[type] = (int)TypeFrequencyList[type] + 1;
+            else
+                TypeFrequencyList.Add(type, 1);
+        }
+
+
+        KeyValuePair<CellType, int>[] ret = new KeyValuePair<CellType, int>[TypeFrequencyList.Count];
+        int cnt = 0;
+        foreach (KeyValuePair<CellType, int> kv in TypeFrequencyList.OrderByDescending(key => key.Value)) {
+            ret[cnt] = new KeyValuePair<CellType, int>(kv.Key, kv.Value);
+            cnt++;
+        }
+
+        return ret;
     }
 }

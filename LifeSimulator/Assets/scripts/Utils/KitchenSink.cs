@@ -96,7 +96,6 @@ namespace KitchenSink {
             }
             return matching / maxLength;
         }
-
     }
 
     public static class MathU {

@@ -6,12 +6,12 @@ using KitchenSink;
 public class SpeciesTracker_script : MonoBehaviour
 {
     private Looper Looper;
-    private List<GameObject> OldRecord;
+    private List<GameObject> OldRecord = new List<GameObject>();
     private List<SpeciesMemberList> SpeciesList = new List<SpeciesMemberList>();
 
     void Start()
     {
-        Looper = new Looper(1.0f, true, TrackSpecies);
+        Looper = new Looper(1.0f, false, TrackSpecies);
     }
 
     private void Update()
@@ -21,9 +21,10 @@ public class SpeciesTracker_script : MonoBehaviour
 
     private void TrackSpecies() {
         List<GameObject> NewRecord = FetchOrganisms();
-
+        ClearOld(OldRecord, NewRecord);
         AddNew(OldRecord, NewRecord);
-        ClearOld(OldRecord, NewRecord);  
+
+        OldRecord = NewRecord;
     }
 
     private void AddNew(List<GameObject> OldRecord, List<GameObject> NewRecord) {

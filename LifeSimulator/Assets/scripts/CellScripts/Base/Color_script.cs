@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DNAUtils;
 using KitchenSink;
+using System.Linq;
 
 public class Color_script : MonoBehaviour
 {
@@ -11,25 +13,38 @@ public class Color_script : MonoBehaviour
 
     void Start()
     {
-
         SpriteRenderer.color = CalcColor();
+    }
+
+    private void Update()
+    {
     }
 
     public Color CalcColor()
     {
         DNA DNA = Cell_Script.GetDNA();
-        string DNAString = DNA.ToString();
+        KeyValuePair<CellType, int>[] TypeFrequency = DNA.GetTypeFrequency();
+        int CellTypeCnt = BaseU.GetEnumLength(typeof(CellType));
 
-        DNAString = DNAString.PadLeft(3, '0');
-        string[] split = BaseU.StringSplit(DNAString, 3);
+        int rV = (int)TypeFrequency[0].Key;
 
-        float rF = MathU.Percentify(int.Parse(split[0]));
-        float gF = MathU.Percentify(int.Parse(split[1]));
-        float bF = MathU.Percentify(int.Parse(split[2]));
+        int gV;
+        if (TypeFrequency.Length < 2)
+            gV = 0;
+        else
+            gV = (int)TypeFrequency[1].Key;
 
-        int r = Mathf.RoundToInt(rF * 255);
-        int g = Mathf.RoundToInt(gF * 255);
-        int b = Mathf.RoundToInt(bF * 255);
+        int bV;
+        if (TypeFrequency.Length < 3)
+            bV = 0;
+        else
+            bV = (int)TypeFrequency[2].Key;
+
+       
+
+        float r = (float)rV / CellTypeCnt;
+        float g = (float)gV / CellTypeCnt;
+        float b = (float)bV / CellTypeCnt;
 
         Color ret = new Color(r, g, b);
         return ret;

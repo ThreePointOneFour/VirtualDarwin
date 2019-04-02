@@ -105,6 +105,6 @@ public class Seed_script : MonoBehaviour {
 
         Vector2 pos = new Vector2(x - origin.x, y - origin.y);
         GameObject go = Instantiate(cell, pos, Quaternion.identity, Organism.transform) as GameObject;
-        go.GetComponent<Cell_script>().SetDNA(DNA.Duplicate());
+        go.GetComponent<Cell_script>().SetDNA(DNA.PerfectDuplicate());
     }
 }
